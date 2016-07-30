@@ -1,0 +1,1 @@
+[{"value":"539,144","key":"move"},{"value":"100","key":"sleep"},{"key":"leftclick"},{"value":"100","key":"sleep"},{"value":"0000","key":"copy"},{"value":"100","key":"sleep"},{"value":"pasts","key":"press"},{"value":"100","key":"sleep"},{"value":"enter","key":"press"}]

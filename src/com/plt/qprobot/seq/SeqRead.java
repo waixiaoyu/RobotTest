@@ -10,6 +10,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.plt.qprobot.robot.RobotMain;
+
 /**
  * 该类用于读取json格式的操作序列
  * 
@@ -17,7 +19,7 @@ import org.json.JSONObject;
  *
  */
 public class SeqRead {
-	private static final String PATH = "C:\\Users\\Administrator\\Desktop\\js.txt";
+	private static final String PATH = RobotMain.PATH;
 	private static final String KEY = SeqWrite.KEY;
 	private static final String VALUE = SeqWrite.VALUE;
 

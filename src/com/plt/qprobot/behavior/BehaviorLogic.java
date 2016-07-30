@@ -43,8 +43,27 @@ public class BehaviorLogic {
 				robot.keyRelease(c);
 			}
 			break;
+		case BehaviorType.PRESS:
+
+			switch (strValue) {
+			case "enter":
+				robot.keyPress(KeyEvent.VK_ENTER);
+				robot.keyRelease(KeyEvent.VK_ENTER);
+				break;
+			case "paste":
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress('v');
+				robot.keyRelease('v');
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+			default:
+				break;
+			}
+			break;
 		case BehaviorType.SLEEP:
 			robot.delay(Integer.valueOf(strValue.split(",")[0]));
+			break;
+		case BehaviorType.COPY:
+			SysClipboardUtils.setSysClipboardText(strValue);
 			break;
 		default:
 			break;

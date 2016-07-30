@@ -19,13 +19,14 @@ import com.plt.qprobot.behavior.BehaviorLogic;
 import com.plt.qprobot.seq.SeqRead;
 
 public class RobotMain {
-	private static final String PATH = "C:\\Users\\Administrator\\Desktop\\js.txt";
+	public static final String PATH = "js.txt";
 
 	public static void main(String[] args) throws AWTException, InterruptedException, IOException {
 		RobotMain rm = new RobotMain();
-		// rm.start();
-		JNIDemo gwl = new JNIDemo();
-		System.out.println(gwl.getWindowLocation());
+		Thread.sleep(3000);
+		rm.start();
+		//JNIDemo gwl = new JNIDemo();
+		//System.out.println(gwl.getWindowLocation());
 	}
 
 	public void start() throws AWTException {
@@ -33,7 +34,7 @@ public class RobotMain {
 		strBehSeq = SeqRead.read(PATH);
 
 		Robot robot = new Robot();
-		robot.setAutoDelay(1000);
+		robot.setAutoDelay(300);
 		BehaviorLogic bl = new BehaviorLogic(robot);
 		for (String seq : strBehSeq) {
 			bl.doBehavior(seq);
