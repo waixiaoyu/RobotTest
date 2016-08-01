@@ -4,7 +4,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -29,13 +28,17 @@ public class JSONUtils {
 		a1.put(a3);
 		System.out.println(a1.toString());
 	}
-
+/**
+ * 根据json字符串写入txt文件，注意输出中文内容的编码格式
+ * @param jsonString
+ * @param filePath
+ */
 	public static void write(String jsonString, String filePath) {
 		try {
 			FileOutputStream fos = null;
 			PrintWriter writer = null;
 			fos = new FileOutputStream(filePath);
-			writer = new PrintWriter(new OutputStreamWriter(fos, "utf-8"));
+			writer = new PrintWriter(new OutputStreamWriter(fos));
 			writer.write(jsonString);
 			writer.close();
 			fos.close();

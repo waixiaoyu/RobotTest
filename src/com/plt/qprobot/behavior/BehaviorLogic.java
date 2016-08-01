@@ -52,9 +52,17 @@ public class BehaviorLogic {
 				break;
 			case "paste":
 				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress('v');
-				robot.keyRelease('v');
+				robot.keyPress('V');
+				robot.keyRelease('V');
 				robot.keyRelease(KeyEvent.VK_CONTROL);
+				break;
+			case "new":
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress('N');
+				robot.keyRelease('N');
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				break;
+
 			default:
 				break;
 			}

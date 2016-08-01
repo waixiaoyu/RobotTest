@@ -7,6 +7,9 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 
 public class SysClipboardUtils {
+	public static void main(String[] args) {
+		setSysClipboardText("双信器");
+	}
 	/**
 	 * 从剪切板获得文字。
 	 */

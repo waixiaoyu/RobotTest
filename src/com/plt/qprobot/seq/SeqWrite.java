@@ -64,6 +64,7 @@ public class SeqWrite {
 	}
 	
 	public static JSONObject keyPress(String str) {
+		SeqWrite.sleep(100);
 		return genJSONObject(BehaviorType.PRESS, str);
 	}
 	

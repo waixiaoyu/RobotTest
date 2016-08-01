@@ -14,7 +14,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import com.jni.demo.JNIDemo;
 import com.plt.qprobot.behavior.BehaviorLogic;
 import com.plt.qprobot.seq.SeqRead;
 
@@ -39,8 +38,14 @@ public class RobotMain {
 		for (String seq : strBehSeq) {
 			bl.doBehavior(seq);
 		}
+
 	}
 
+	/**
+	 * robot功能sample
+	 * @throws IOException
+	 * @throws AWTException
+	 */
 	public void test() throws IOException, AWTException {
 		Robot robot = new Robot();
 		// 设置Robot产生一个动作后的休眠时间,否则执行过快
