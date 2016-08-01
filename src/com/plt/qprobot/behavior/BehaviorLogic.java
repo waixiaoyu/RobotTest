@@ -62,7 +62,10 @@ public class BehaviorLogic {
 				robot.keyRelease('N');
 				robot.keyRelease(KeyEvent.VK_CONTROL);
 				break;
-
+			case "backspace":
+				robot.keyPress(KeyEvent.VK_BACK_SPACE);
+				robot.keyRelease(KeyEvent.VK_BACK_SPACE);
+				break;
 			default:
 				break;
 			}

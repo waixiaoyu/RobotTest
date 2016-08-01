@@ -24,8 +24,8 @@ public class RobotMain {
 		RobotMain rm = new RobotMain();
 		Thread.sleep(3000);
 		rm.start();
-		//JNIDemo gwl = new JNIDemo();
-		//System.out.println(gwl.getWindowLocation());
+		// JNIDemo gwl = new JNIDemo();
+		// System.out.println(gwl.getWindowLocation());
 	}
 
 	public void start() throws AWTException {
@@ -43,6 +43,7 @@ public class RobotMain {
 
 	/**
 	 * robot¹¦ÄÜsample
+	 * 
 	 * @throws IOException
 	 * @throws AWTException
 	 */
@@ -71,7 +72,7 @@ public class RobotMain {
 		robot.mousePress(InputEvent.BUTTON1_MASK);
 		robot.mouseRelease(InputEvent.BUTTON1_MASK);
 
-		// Êó±êÓÒ¼ü
+		// Êó±êÓÒ¼ü6.5100
 		System.out.println("ÓÒ»÷");
 		robot.mousePress(InputEvent.BUTTON3_MASK);
 		robot.mouseRelease(InputEvent.BUTTON3_MASK);

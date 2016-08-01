@@ -47,6 +47,12 @@ public class SeqWrite {
 		return mouseMove(radioToCoordinate(x, y)[0], radioToCoordinate(x, y)[1]);
 	}
 
+	public static JSONObject mouseMoveInRadio(String str) {
+		double x = Double.valueOf(str.split(",")[0]);
+		double y = Double.valueOf(str.split(",")[1]);
+		return mouseMove(radioToCoordinate(x, y)[0], radioToCoordinate(x, y)[1]);
+	}
+
 	public static JSONObject mouseLeftClick() {
 		return genJSONObject(BehaviorType.LEFT_CLICK, null);
 	}
@@ -62,17 +68,16 @@ public class SeqWrite {
 	public static JSONObject keyInput(String str) {
 		return genJSONObject(BehaviorType.INPUT, str);
 	}
-	
+
 	public static JSONObject keyPress(String str) {
 		SeqWrite.sleep(100);
 		return genJSONObject(BehaviorType.PRESS, str);
 	}
-	
 
 	public static JSONObject sleep(long sleeptime) {
 		return genJSONObject(BehaviorType.SLEEP, String.valueOf(sleeptime));
 	}
-	
+
 	public static JSONObject copy(String str) {
 		return genJSONObject(BehaviorType.COPY, str);
 	}

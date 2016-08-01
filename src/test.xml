@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TCS101Message>
+  <MessageHead>
+    <MessageType>001</MessageType>
+    <MessageId>T78390551800201607271159098731</MessageId>
+    <MessageTime>20160727115909</MessageTime>
+    <SenderId>T78390551800</SenderId>
+    <SenderAddress>T78390551800@TCS53001</SenderAddress>
+    <ReceiverId>T99999999999</ReceiverId>
+    <ReceiverAddress>T99999999999@TCS10001</ReceiverAddress>
+  </MessageHead>
+  <MessageBody>
+    <tcs:TcsFlow201 schemaLocation="http://www.chinaport.gov.cn/tcs/v2 TcsWorkFlow.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tcs="http://www.chinaport.gov.cn/tcs/v2">
+      <tcs:TcsUser>
+        <tcs:UserId>T78390551800</tcs:UserId>
+        <tcs:UserPrivateKey>7638256</tcs:UserPrivateKey>
+      </tcs:TcsUser>
+      <tcs:TcsFlow>
+        <tcs:MessageId>01T78390551800201607271159098731</tcs:MessageId>
+        <tcs:BpNo>EBT00010000004018</tcs:BpNo>
+        <tcs:ActionList>
+          <tcs:ActionId>a01</tcs:ActionId>
+        </tcs:ActionList>
+        <tcs:TaskId>T78390551800201607271159098731</tcs:TaskId>
+        <tcs:TaskNote />
+        <tcs:CorpTaskId />
+        <tcs:TaskControl />
+      </tcs:TcsFlow>
+      <tcs:TcsData>
+        <tcs:DeclarationDocument xsi:schemaLocation="http://www.chinaport.gov.cn/tcs/v2">
+          <tcs:TcsDocumentNo>T78390551800001201607278002</tcs:TcsDocumentNo>
+          <tcs:DataCooperationType>001</tcs:DataCooperationType>
+          <tcs:EntryInformation>
+            <tcs:EntryIdentityInformationList>
+              <tcs:EntryIdentityInformation>
+                <tcs:EntryIdentity>001</tcs:EntryIdentity>
+                <tcs:CorporationCustomsCode>4403065167</tcs:CorporationCustomsCode>
+                <tcs:CorporationName>深圳市普路通供应链管理股份有限公司</tcs:CorporationName>
+              </tcs:EntryIdentityInformation>
+              <tcs:EntryIdentityInformation>
+                <tcs:EntryIdentity>002</tcs:EntryIdentity>
+                <tcs:CorporationCustomsCode>1108940996</tcs:CorporationCustomsCode>
+                <tcs:CorporationName>小米通讯技术有限公司</tcs:CorporationName>
+              </tcs:EntryIdentityInformation>
+              <tcs:EntryIdentityInformation>
+                <tcs:EntryIdentity>003</tcs:EntryIdentity>
+                <tcs:CorporationCustomsCode>4403065167</tcs:CorporationCustomsCode>
+                <tcs:CorporationName>深圳市普路通供应链管理股份有限公司</tcs:CorporationName>
+              </tcs:EntryIdentityInformation>
+              <tcs:EntryIdentityInformation>
+                <tcs:EntryIdentity>004</tcs:EntryIdentity>
+                <tcs:CorporationCustomsCode>783905518</tcs:CorporationCustomsCode>
+                <tcs:CorporationName>深圳市普路通供应链管理股份有限公司</tcs:CorporationName>
+              </tcs:EntryIdentityInformation>
+            </tcs:EntryIdentityInformationList>
+            <tcs:LogisticsLocationInformationList>
+              <tcs:LogisticsLocationInformation>
+                <tcs:LogisticsLocationType>007</tcs:LogisticsLocationType>
+                <tcs:LogisticsLocationCode>110</tcs:LogisticsLocationCode>
+              </tcs:LogisticsLocationInformation>
+              <tcs:LogisticsLocationInformation>
+                <tcs:LogisticsLocationType>011</tcs:LogisticsLocationType>
+                <tcs:LogisticsLocationCode>110</tcs:LogisticsLocationCode>
+              </tcs:LogisticsLocationInformation>
+            </tcs:LogisticsLocationInformationList>
+            <tcs:EportLocationInformationList>
+              <tcs:EportLocationInformation>
+                <tcs:EportLocationTypeCode>001</tcs:EportLocationTypeCode>
+                <tcs:EportLocationCode>5301</tcs:EportLocationCode>
+              </tcs:EportLocationInformation>
+              <tcs:EportLocationInformation>
+                <tcs:EportLocationTypeCode>003</tcs:EportLocationTypeCode>
+                <tcs:EportLocationCode>5301</tcs:EportLocationCode>
+              </tcs:EportLocationInformation>
+            </tcs:EportLocationInformationList>
+            <tcs:BaseInformation>
+              <tcs:PreentryNo />
+              <tcs:EntryType>001</tcs:EntryType>
+              <tcs:EntryTransitType>001</tcs:EntryTransitType>
+              <tcs:DeclareProperty>005</tcs:DeclareProperty>
+              <tcs:TaxCorporationType xsi:nil="true" />
+              <tcs:DestinationCode>44031</tcs:DestinationCode>
+              <tcs:WarehouseNo xsi:nil="true" />
+              <tcs:CYNo xsi:nil="true" />
+              <tcs:ContractNo>plt2016-08002</tcs:ContractNo>
+              <tcs:RelativeEnrolNo xsi:nil="true" />
+              <tcs:MeansOfTransportId>1100183400854</tcs:MeansOfTransportId>
+              <tcs:BillOfLadingNo>PLT201608002</tcs:BillOfLadingNo>
+              <tcs:PackingType>2</tcs:PackingType>
+              <tcs:MeansOfTransportMode>4</tcs:MeansOfTransportMode>
+              <tcs:TransactionMode>1</tcs:TransactionMode>
+              <tcs:TradeMode>0110</tcs:TradeMode>
+              <tcs:CutMode>101</tcs:CutMode>
+              <tcs:ImportExportFlag>I</tcs:ImportExportFlag>
+              <tcs:Packages>1</tcs:Packages>
+              <tcs:NetWeight>6.51</tcs:NetWeight>
+              <tcs:GrossWeight>9</tcs:GrossWeight>
+              <tcs:FreightMark xsi:nil="true" />
+              <tcs:FreightRate>0</tcs:FreightRate>
+              <tcs:FreightCurrency xsi:nil="true" />
+              <tcs:InsuranceMark xsi:nil="true" />
+              <tcs:InsuranceRate>0</tcs:InsuranceRate>
+              <tcs:InsuranceCurrency xsi:nil="true" />
+              <tcs:ExtrasMark xsi:nil="true" />
+              <tcs:ExtrasRate>0</tcs:ExtrasRate>
+              <tcs:ExtrasCurrency xsi:nil="true" />
+              <tcs:SaleDomesticRatio xsi:nil="true" />
+              <tcs:ImportExportDate>2016-07-27</tcs:ImportExportDate>
+              <tcs:TransportDate>2016-07-27</tcs:TransportDate>
+              <tcs:DeclarantID xsi:nil="true" />
+              <tcs:DeclarantTelephone xsi:nil="true" />
+              <tcs:EntrydeclarantNo xsi:nil="true" />
+              <tcs:ICCardNo>8600000056845</tcs:ICCardNo>
+              <tcs:Name>倪伟雄</tcs:Name>
+              <tcs:ChkSurety xsi:nil="true" />
+              <tcs:BillType xsi:nil="true" />
+              <tcs:AgentCodeScc>91440300783905518J</tcs:AgentCodeScc>
+              <tcs:CopCodeScc xsi:nil="true" />
+              <tcs:TradeCodeScc>91440300783905518J</tcs:TradeCodeScc>
+              <tcs:PromiseItmes>000</tcs:PromiseItmes>
+              <tcs:TradeAreaCode>110</tcs:TradeAreaCode>
+            </tcs:BaseInformation>
+            <tcs:GoodsInformationList>
+              <tcs:GoodsInformation>
+                <tcs:No>1</tcs:No>
+                <tcs:HsCode>8517703000</tcs:HsCode>
+                <tcs:MaterialNo xsi:nil="true" />
+                <tcs:GoodsName>双信器</tcs:GoodsName>
+                <tcs:EnglishName xsi:nil="true" />
+                <tcs:Model>用于MI牌A12C型号手机|WALSIN牌|RFDIP2012070G57N2T型|材质：陶瓷等</tcs:Model>
+                <tcs:EnrolNo />
+                <tcs:Quantity>210000.0000</tcs:Quantity>
+                <tcs:QuantityUnit>007</tcs:QuantityUnit>
+                <tcs:UnitPrice>0.0371</tcs:UnitPrice>
+                <tcs:TotalPrice>7785.54</tcs:TotalPrice>
+                <tcs:Currency>502</tcs:Currency>
+                <tcs:FirstQuantity>6.5100</tcs:FirstQuantity>
+                <tcs:FirstUnit>035</tcs:FirstUnit>
+                <tcs:OriginCode>143</tcs:OriginCode>
+                <tcs:DutyMode>1</tcs:DutyMode>
+                <tcs:ProcessingCharges xsi:nil="true" />
+                <tcs:GoodsVersion xsi:nil="true" />
+                <tcs:ClassificationMark xsi:nil="true" />
+                <tcs:Note xsi:nil="true" />
+                <tcs:DestinationCountry>142</tcs:DestinationCountry>
+              </tcs:GoodsInformation>
+            </tcs:GoodsInformationList>
+          </tcs:EntryInformation>
+          <tcs:SignInformation>
+            <tcs:IccardNo>8600000056845</tcs:IccardNo>
+            <tcs:Name>倪伟雄</tcs:Name>
+            <tcs:OrganizationCode>783905518</tcs:OrganizationCode>
+            <tcs:SignInformation />
+            <tcs:SignDate>2016-07-27T11:59:09.873</tcs:SignDate>
+            <tcs:CertificateNo>a49f47</tcs:CertificateNo>
+          </tcs:SignInformation>
+        </tcs:DeclarationDocument>
+      </tcs:TcsData>
+    </tcs:TcsFlow201>
+  </MessageBody>
+</TCS101Message>
