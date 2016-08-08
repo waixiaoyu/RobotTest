@@ -1,5 +1,6 @@
 package com.plt.qprobot.behavior;
 
+import java.awt.Color;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -12,9 +13,12 @@ public class BehaviorLogic {
 		this.robot = robot;
 	}
 
-	public void doBehavior(String instruction) {
+	public void doBehavior(String instruction) throws InterruptedException {
 		String strKey = instruction.split("-")[0];
-		String strValue = instruction.split("-")[1];
+		String strValue = "";
+		if (instruction.split("-").length > 1) {
+			strValue = instruction.split("-")[1];
+		}
 		switch (strKey) {
 		case BehaviorType.MOVE:
 			int x = Integer.valueOf(strValue.split(",")[0]);
@@ -62,6 +66,12 @@ public class BehaviorLogic {
 				robot.keyRelease('N');
 				robot.keyRelease(KeyEvent.VK_CONTROL);
 				break;
+			case "save":
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress('S');
+				robot.keyRelease('S');
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				break;
 			case "backspace":
 				robot.keyPress(KeyEvent.VK_BACK_SPACE);
 				robot.keyRelease(KeyEvent.VK_BACK_SPACE);
@@ -75,6 +85,24 @@ public class BehaviorLogic {
 			break;
 		case BehaviorType.COPY:
 			SysClipboardUtils.setSysClipboardText(strValue);
+			break;
+		case BehaviorType.COLOR:// 在这个类型中，value有五个值，xy,rgb
+			String[] strs = strValue.split(",");
+			Color color = robot.getPixelColor(Integer.valueOf(strs[0]), Integer.valueOf(strs[1]));
+			Color colorOld = new Color(Integer.valueOf(strs[2]), Integer.valueOf(strs[3]), Integer.valueOf(strs[4]));
+			int nAttemptTime = 10;
+			int nCount = 0;
+			while (!color.equals(colorOld) && nCount < nAttemptTime) {
+				++nCount;
+				Thread.sleep(500);
+				color = robot.getPixelColor(Integer.valueOf(strs[3]), Integer.valueOf(strs[4]));
+			}
+			if (nCount < nAttemptTime) {
+				System.out.println("颜色检测成功");
+			} else {
+				System.err.println("颜色检测失败" + "pixel:" + strs + color);
+				System.exit(1);
+			}
 			break;
 		default:
 			break;

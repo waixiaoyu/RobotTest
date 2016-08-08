@@ -16,19 +16,43 @@ import javax.imageio.ImageIO;
 
 import com.plt.qprobot.behavior.BehaviorLogic;
 import com.plt.qprobot.seq.SeqRead;
+import com.plt.qprobot.utils.IOUtils;
 
-public class RobotMain {
+public class RobotMain implements Runnable {
+
+	public RobotMain() {
+		super();
+		// TODO Auto-generated constructor stub
+		IOUtils.makeDirs(System.getProperty("user.dir") + "\\receive");
+		IOUtils.makeDirs(System.getProperty("user.dir") + "\\error");
+		if (IOUtils.isExist(System.getProperty("user.dir") + "\\send")) {
+			System.out.println("send文件夹不存在，请检查！");
+		}
+	}
+
 	public static final String PATH = "js.txt";
+
+	@Override
+	public void run() {
+		RobotMain rm = new RobotMain();
+		try {
+			Thread.sleep(3000);
+			rm.start();
+		} catch (InterruptedException | AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	public static void main(String[] args) throws AWTException, InterruptedException, IOException {
 		RobotMain rm = new RobotMain();
 		Thread.sleep(3000);
 		rm.start();
-		// JNIDemo gwl = new JNIDemo();
-		// System.out.println(gwl.getWindowLocation());
+
 	}
 
-	public void start() throws AWTException {
+	public void start() throws AWTException, InterruptedException {
 		List<String> strBehSeq;
 		strBehSeq = SeqRead.read(PATH);
 
@@ -93,4 +117,5 @@ public class RobotMain {
 		}
 		robot.keyRelease(KeyEvent.VK_ALT);
 	}
+
 }

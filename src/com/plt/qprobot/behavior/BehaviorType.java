@@ -9,5 +9,6 @@ public class BehaviorType {
 	public static final String PRESS = "press";
 	public static final String SLEEP = "sleep";
 	public static final String COPY = "copy";
+	public static final String COLOR = "color";
 
 }

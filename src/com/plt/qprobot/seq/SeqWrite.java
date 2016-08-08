@@ -31,7 +31,7 @@ public class SeqWrite {
 		return "59,800,288,1312";
 	}
 
-	private static int[] radioToCoordinate(double dX, double dY) {
+	public static int[] radioToCoordinate(double dX, double dY) {
 		String[] strArr = getWindowLocation().split(",");
 		int[] nArr = new int[2];
 		nArr[0] = (int) ((Integer.valueOf(strArr[3]) - Integer.valueOf(strArr[2])) * dX + Integer.valueOf(strArr[2]));
@@ -82,4 +82,12 @@ public class SeqWrite {
 		return genJSONObject(BehaviorType.COPY, str);
 	}
 
+	public static JSONObject checkColor(String str) {
+		String[] strs = str.split(",");
+		strs[0] = String.valueOf(radioToCoordinate(Double.valueOf(strs[0]), Double.valueOf(strs[1]))[0]);
+		strs[1] = String.valueOf(radioToCoordinate(Double.valueOf(strs[0]), Double.valueOf(strs[1]))[1]);
+
+		return genJSONObject(BehaviorType.COLOR,
+				strs[0] + "," + strs[1] + "," + strs[2] + "," + strs[3] + "," + strs[4]);
+	}
 }

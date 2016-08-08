@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TCS101Message>	
+  <MessageBody>  	
+    <BaseInformation>
+      <CustomsDeclaration>5301</CustomsDeclaration>	
+			<ImportPort>5301</ImportPort>
+			<ContractNo>plt2016-08002</ContractNo>
+			<Consignee>4403065167</Consignee>
+			<ConsumerUnit>1108940996</ConsumerUnit>
+			<DeclarationUnit>4403065167</DeclarationUnit>
+			<MeansOfTransportMode>4</MeansOfTransportMode>
+			<MeansOfTransportId>1100183400854</MeansOfTransportId>
+			<BillOfLadingNo>PLT201608002</BillOfLadingNo>
+			<TradeMode>0110</TradeMode>
+			<CutMode>101</CutMode>
+			<PurchaseCountry>110</PurchaseCountry>
+			<LoadingPort>110</LoadingPort>
+			<DestinationCode>44031</DestinationCode>
+			<TransactionMode>1</TransactionMode>
+			<FreightMark>3</FreightMark>
+			<FreightRate>22</FreightRate>
+			<FreightCurrency>110</FreightCurrency>
+			<InsuranceMark />
+			<InsuranceRate />
+			<InsuranceCurrency />
+			<ExtrasMark />
+			<ExtrasRate />
+			<ExtrasCurrency />
+			<Packages>1</Packages>
+			<PackingType>2</PackingType>
+			<GrossWeight>9</GrossWeight>
+			<NetWeight>6.51</NetWeight>
+			<TradeAreaCode>110</TradeAreaCode>
+			<DeclarationType>M</DeclarationType>
+			<PromiseItmes>000</PromiseItmes>
+    </BaseInformation>
+    <ContainerList>
+    	<Container>
+    		<No>1</No>
+    		<ContainerNo>00</ContainerNo>
+    		<ContainerSize>L</ContainerSize>
+    		<DeadWeight>2</DeadWeight>
+    	</Container>
+    	 <Container>
+    		<No>2</No>
+    		<ContainerNo>01</ContainerNo>
+    		<ContainerSize>L</ContainerSize>
+    		<DeadWeight>3</DeadWeight>
+    	</Container>
+    </ContainerList>
+    <AttachDocumentList>
+    	<AttachDocument>
+    		<No>1</No>
+    		<AttachedDocumentCode>1</AttachedDocumentCode>
+    		<AttachedDocumentNo>00</AttachedDocumentNo>
+    	</AttachDocument>
+    </AttachDocumentList>
+    <GoodsInformationList>
+      <GoodsInformation>
+      	<No>1</No>
+      	<HsCode>8517703000</HsCode>
+				<GoodsName>双信器</GoodsName>
+				<Model>用于MI牌A12C型号手机|WALSIN牌|RFDIP2012070G57N2T型|材质：陶瓷等</Model>
+				<Quantity>210000</Quantity>
+				<QuantityUnit>007</QuantityUnit>
+				<UnitPrice>0.0371</UnitPrice>
+				<TotalPrice>7785.54</TotalPrice>
+				<Currency>502</Currency>
+				<FirstQuantity>6.5100</FirstQuantity>
+				<FirstUnit>035</FirstUnit>
+				<DestinationCountry>142</DestinationCountry>
+				<SecondQuantity />
+				<SecondUnit />
+				<OriginCode>143</OriginCode>
+				<DutyMode>1</DutyMode>
+      </GoodsInformation>
+    </GoodsInformationList>	        
+  </MessageBody>
+</TCS101Message>
