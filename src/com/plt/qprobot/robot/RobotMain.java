@@ -14,47 +14,97 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.dom4j.DocumentException;
+
 import com.plt.qprobot.behavior.BehaviorLogic;
+import com.plt.qprobot.behavior.SysClipboardUtils;
+import com.plt.qprobot.monitor.MonitorError;
+import com.plt.qprobot.seq.SeqMain;
 import com.plt.qprobot.seq.SeqRead;
 import com.plt.qprobot.utils.IOUtils;
+import com.plt.qprobot.utils.XMLUtils;
 
 public class RobotMain implements Runnable {
+
+	public static volatile boolean isContinue = true;
+
+	public static String dir = "";
+	public static String strCurrentFileName = System.getProperty("user.dir");
+
+	public static String strUniCode = "";
 
 	public RobotMain() {
 		super();
 		// TODO Auto-generated constructor stub
-		IOUtils.makeDirs(System.getProperty("user.dir") + "\\receive");
-		IOUtils.makeDirs(System.getProperty("user.dir") + "\\error");
-		if (IOUtils.isExist(System.getProperty("user.dir") + "\\send")) {
+		dir = System.getProperty("user.dir");
+		IOUtils.makeDirs(dir + "\\receive");
+		IOUtils.makeDirs(dir + "\\error");
+		if (!IOUtils.isExist(dir + "\\send")) {
 			System.out.println("send文件夹不存在，请检查！");
 		}
 	}
 
-	public static final String PATH = "js.txt";
+	public static String strJsonPath;
 
 	@Override
 	public void run() {
-		RobotMain rm = new RobotMain();
-		try {
-			Thread.sleep(3000);
-			rm.start();
-		} catch (InterruptedException | AWTException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		while (isContinue) {
+			System.out.println("开始获取xml文件");
+			strCurrentFileName = XMLUtils.getFileName();
+			if (strCurrentFileName.equals("")) {
+				System.out.println("所有文件读取结束！");
+				isContinue = false;
+			} else {
+				SeqMain sm = new SeqMain(strCurrentFileName);
+				try {
+					sm.create();
+					System.out.println("主程序准备开始3s");
+					RobotMain rm = new RobotMain();
+					Thread.sleep(3000);
+					rm.start();
 
+					strUniCode = SysClipboardUtils.getSysClipboardText();
+					XMLUtils.createXML(strCurrentFileName);
+					XMLUtils.deleteTXT(strCurrentFileName);
+					XMLUtils.deleteXML(strCurrentFileName);
+				} catch (DocumentException | InterruptedException | IOException | AWTException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		}
 	}
 
-	public static void main(String[] args) throws AWTException, InterruptedException, IOException {
-		RobotMain rm = new RobotMain();
-		Thread.sleep(3000);
-		rm.start();
+	public static void main(String[] args) throws AWTException, InterruptedException, IOException, DocumentException {
+		boolean isContinue = true;
+		while (isContinue) {
+			System.out.println("开始获取xml文件");
+			strCurrentFileName = XMLUtils.getFileName();
+			if (strCurrentFileName.equals("")) {
+				System.out.println("所有文件读取结束！");
+				isContinue = false;
+			} else {
+				SeqMain sm = new SeqMain(strCurrentFileName);
+				sm.create();
+
+				System.out.println("主程序准备开始3s");
+				RobotMain rm = new RobotMain();
+				Thread.sleep(3000);
+				rm.start();
+
+				strUniCode = SysClipboardUtils.getSysClipboardText();
+				XMLUtils.createXML(strCurrentFileName);
+				XMLUtils.deleteTXT(strCurrentFileName);
+				// XMLUtils.deleteXML(strCurrentFileName);
+			}
+		}
 
 	}
 
 	public void start() throws AWTException, InterruptedException {
 		List<String> strBehSeq;
-		strBehSeq = SeqRead.read(PATH);
+		strBehSeq = SeqRead.read(SeqMain.strJsonPath);
 
 		Robot robot = new Robot();
 		robot.setAutoDelay(300);

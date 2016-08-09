@@ -5,12 +5,16 @@ import java.awt.Color;
 import java.awt.Robot;
 
 import com.plt.qprobot.seq.SeqWrite;
+import com.plt.qprobot.utils.PropertiesUtils;
 
 public class Test {
 	public static void main(String[] args) throws AWTException, InterruptedException {
 		Robot robot = new Robot();
+		String[] str = PropertiesUtils.get("error").split(",");
 		Thread.sleep(3000);
-		Color color = robot.getPixelColor(710,249);
+		int x = SeqWrite.radioToCoordinate(Double.valueOf(str[0]), Double.valueOf(str[1]))[0];
+		int y = SeqWrite.radioToCoordinate(Double.valueOf(str[0]), Double.valueOf(str[1]))[1];
+		Color color = robot.getPixelColor(x, y);
 		System.out.println(color);
 	}
 }

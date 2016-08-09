@@ -5,6 +5,8 @@ import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import com.plt.qprobot.seq.SeqRead;
+
 public class BehaviorLogic {
 	private Robot robot;
 
@@ -14,10 +16,10 @@ public class BehaviorLogic {
 	}
 
 	public void doBehavior(String instruction) throws InterruptedException {
-		String strKey = instruction.split("-")[0];
+		String strKey = instruction.split(SeqRead.SPLIT_MARK)[0];
 		String strValue = "";
-		if (instruction.split("-").length > 1) {
-			strValue = instruction.split("-")[1];
+		if (instruction.split(SeqRead.SPLIT_MARK).length > 1) {
+			strValue = instruction.split(SeqRead.SPLIT_MARK)[1];
 		}
 		switch (strKey) {
 		case BehaviorType.MOVE:
@@ -36,7 +38,7 @@ public class BehaviorLogic {
 		case BehaviorType.DOUBLE_CLICK:
 			robot.mousePress(InputEvent.BUTTON1_MASK);// °´ÏÂ×ó¼ü
 			robot.mouseRelease(InputEvent.BUTTON1_MASK);// ÊÍ·Å×ó¼ü
-			robot.delay(100);// Í£¶Ù100ºÁÃë,¼´0.1Ãë
+			robot.delay(100);// Í£¶Ù100ºÁÃë
 			robot.mousePress(InputEvent.BUTTON1_MASK);// °´ÏÂ×ó¼ü
 			robot.mouseRelease(InputEvent.BUTTON1_MASK);// ÊÍ·Å×ó¼ü
 			break;
@@ -50,6 +52,10 @@ public class BehaviorLogic {
 		case BehaviorType.PRESS:
 
 			switch (strValue) {
+			case "A":
+				robot.keyPress('A');
+				robot.keyRelease('A');
+				break;
 			case "enter":
 				robot.keyPress(KeyEvent.VK_ENTER);
 				robot.keyRelease(KeyEvent.VK_ENTER);
@@ -58,6 +64,12 @@ public class BehaviorLogic {
 				robot.keyPress(KeyEvent.VK_CONTROL);
 				robot.keyPress('V');
 				robot.keyRelease('V');
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				break;
+			case "copy":
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress('C');
+				robot.keyRelease('C');
 				robot.keyRelease(KeyEvent.VK_CONTROL);
 				break;
 			case "new":
@@ -95,7 +107,7 @@ public class BehaviorLogic {
 			while (!color.equals(colorOld) && nCount < nAttemptTime) {
 				++nCount;
 				Thread.sleep(500);
-				color = robot.getPixelColor(Integer.valueOf(strs[3]), Integer.valueOf(strs[4]));
+				color = robot.getPixelColor(Integer.valueOf(strs[0]), Integer.valueOf(strs[1]));
 			}
 			if (nCount < nAttemptTime) {
 				System.out.println("ÑÕÉ«¼ì²â³É¹¦");

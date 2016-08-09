@@ -19,10 +19,12 @@ import com.plt.qprobot.robot.RobotMain;
  *
  */
 public class SeqRead {
-	private static final String PATH = RobotMain.PATH;
+	private static String PATH = SeqMain.strJsonPath;
 	private static final String KEY = SeqWrite.KEY;
 	private static final String VALUE = SeqWrite.VALUE;
+	public static final String SPLIT_MARK = "--";
 
+	
 	public static void main(String[] args) {
 		read(PATH);
 	}
@@ -34,11 +36,11 @@ public class SeqRead {
 	 * @return List<String>
 	 */
 	public static List<String> read(String path) {
-		JSONArray ja = new JSONArray(readFile(PATH));
+		JSONArray ja = new JSONArray(readFile(path));
 		List<String> lStr = new ArrayList<>();
 		for (Object object : ja) {
 			JSONObject jobj = new JSONObject(object.toString());
-			lStr.add(jobj.getString(KEY) + "-" + (jobj.isNull(VALUE) ? null : jobj.getString(VALUE)));
+			lStr.add(jobj.getString(KEY) + SPLIT_MARK + (jobj.isNull(VALUE) ? null : jobj.getString(VALUE)));
 		}
 		return lStr;
 	}
