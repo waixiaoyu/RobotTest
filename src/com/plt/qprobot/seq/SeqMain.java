@@ -3,6 +3,7 @@ package com.plt.qprobot.seq;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.dom4j.DocumentException;
 import org.json.JSONObject;
 
@@ -11,6 +12,7 @@ import com.plt.qprobot.utils.PropertiesUtils;
 import com.plt.qprobot.utils.XMLUtils;
 
 public class SeqMain {
+	private static Logger Log = Logger.getLogger(SeqMain.class);
 
 	public static String strJsonPath;
 	public static long sleep_time = 50;// 可以通过缩短休眠时间来提高速度
@@ -27,6 +29,16 @@ public class SeqMain {
 
 	public void create() throws DocumentException {
 		List<JSONObject> lJ = new ArrayList<>();
+
+		lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("BaoGuanDan")));
+		lJ.add(SeqWrite.sleep(sleep_time));
+		lJ.add(SeqWrite.mouseLeftClick());
+		lJ.add(SeqWrite.sleep(sleep_time));
+		lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("ImportBaoGuanDan")));
+		lJ.add(SeqWrite.sleep(sleep_time));
+		lJ.add(SeqWrite.mouseLeftClick());
+		lJ.add(SeqWrite.sleep(sleep_time));
+
 		// 新增订单
 		lJ.add(SeqWrite.keyPress("new"));
 		/**
@@ -423,7 +435,7 @@ public class SeqMain {
 		List<String> strBehSeq;
 		strBehSeq = SeqRead.read(strJsonPath);
 		for (String string : strBehSeq) {
-			System.out.println(string);
+			Log.info(string);
 		}
 	}
 }

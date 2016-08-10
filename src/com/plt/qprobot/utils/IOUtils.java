@@ -2,7 +2,11 @@ package com.plt.qprobot.utils;
 
 import java.io.File;
 
+import org.apache.log4j.Logger;
+
 public class IOUtils {
+	private static Logger Log=Logger.getLogger(IOUtils.class);
+	
 	public static void main(String[] args) {
 		makeDirs(System.getProperty("user.dir") + "\\receive");
 	}
@@ -10,7 +14,7 @@ public class IOUtils {
 	public static boolean makeDirs(String path) {
 		File folder = new File(path);
 		if (isExist(path)) {
-			System.out.println(path + " 已存在");
+			Log.info(path + " 已存在");
 			return true;
 		} else {
 			return folder.mkdirs();

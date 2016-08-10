@@ -6,10 +6,13 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class JSONUtils {
+	private static Logger Log = Logger.getLogger(JSONUtils.class);
+
 	public static void main(String[] args) {
 		JSONObject obj6 = new JSONObject();
 		obj6.put("title", "book1").put("price", "$11");
@@ -26,13 +29,15 @@ public class JSONUtils {
 		a3.put("children", "");
 		a1.put(a2);
 		a1.put(a3);
-		System.out.println(a1.toString());
+		Log.info(a1.toString());
 	}
-/**
- * 根据json字符串写入txt文件，注意输出中文内容的编码格式
- * @param jsonString
- * @param filePath
- */
+
+	/**
+	 * 根据json字符串写入txt文件，注意输出中文内容的编码格式
+	 * 
+	 * @param jsonString
+	 * @param filePath
+	 */
 	public static void write(String jsonString, String filePath) {
 		try {
 			FileOutputStream fos = null;
@@ -43,8 +48,7 @@ public class JSONUtils {
 			writer.close();
 			fos.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.error(e);
 		}
 	}
 
@@ -53,7 +57,7 @@ public class JSONUtils {
 		for (Object obj : lJ) {
 			ja.put(obj);
 		}
-		System.out.println(ja.toString());
+		Log.info(ja.toString());
 		write(ja.toString(), filePath);
 	}
 

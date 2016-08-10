@@ -1,11 +1,14 @@
 package com.plt.qprobot.utils;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 public class PropertiesUtils {
+	private static Logger Log=Logger.getLogger(Properties.class);
+	
 	private static Properties prop;
 	static {
 		prop = new Properties();// 属性集合对象
@@ -13,13 +16,8 @@ public class PropertiesUtils {
 		try {
 			fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\location.properties");
 			prop.load(fis);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} // 属性文件流
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException e) {
+			Log.error(e);
 		}
 	}
 

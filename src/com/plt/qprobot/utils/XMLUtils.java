@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -20,6 +21,8 @@ import org.dom4j.xpath.DefaultXPath;
 import com.plt.qprobot.robot.RobotMain;
 
 public class XMLUtils {
+	private static Logger Log = Logger.getLogger(XMLUtils.class);
+
 	private static SAXReader reader = new SAXReader();
 	private static Document document;
 	private static DefaultXPath xpath;
@@ -41,11 +44,12 @@ public class XMLUtils {
 		if (fdir.exists() && fdir.isDirectory()) {
 			str = fdir.list();
 		} else {
-			System.err.println("send目录不存在，请检查");
+			Log.error("send目录不存在，请检查！");
 			System.exit(1);
 		}
 
 		if (str.length == 0) {
+			Log.error("send目录为空，可能出错！");
 			return "";
 		} else {
 			File file = new File(dir + "\\send\\" + str[0]);
@@ -137,9 +141,9 @@ public class XMLUtils {
 		File file = new File(fileName);
 		if (file.exists()) {
 			file.delete();
-			System.out.println(fileName + "成功删除");
+			Log.info(fileName + "成功删除");
 		} else {
-			System.err.println("文件夹不存在出错,无法删除");
+			Log.error("文件夹不存在出错,无法删除");
 			System.exit(1);
 		}
 	}
@@ -162,7 +166,10 @@ public class XMLUtils {
 		Document document = DocumentHelper.createDocument(root);
 
 		// 给根节点添加孩子节点
-		Element element1 = root.addElement("UniCode").addText(RobotMain.strUniCode);
+		root.addElement("UniCode").addText(RobotMain.strUniCode);
+		// 给根节点添加孩子节点
+		root.addElement("ID")
+				.addText(RobotMain.strCurrentFileName.substring(0, RobotMain.strCurrentFileName.length() - 4));
 
 		// 把生成的xml文档存放在硬盘上 true代表是否换行
 		OutputFormat format = new OutputFormat("", true);

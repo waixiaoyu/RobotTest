@@ -1,5 +1,6 @@
 package com.plt.qprobot.seq;
 
+import java.awt.Robot;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -19,6 +21,9 @@ import com.plt.qprobot.robot.RobotMain;
  *
  */
 public class SeqRead {
+	private static Logger Log = Logger.getLogger(SeqRead.class);
+
+	
 	private static String PATH = SeqMain.strJsonPath;
 	private static final String KEY = SeqWrite.KEY;
 	private static final String VALUE = SeqWrite.VALUE;
@@ -59,12 +64,13 @@ public class SeqRead {
 			}
 			reader.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.error(e);
 		} finally {
 			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e1) {
+					Log.error(e1);
 				}
 			}
 		}

@@ -1,5 +1,6 @@
 package com.plt.qprobot.seq;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import com.plt.qprobot.behavior.BehaviorType;
@@ -11,6 +12,9 @@ import com.plt.qprobot.behavior.BehaviorType;
  *
  */
 public class SeqWrite {
+	
+	private static Logger Log=Logger.getLogger(SeqWrite.class);
+	
 	public static final String KEY = "key";
 	public static final String VALUE = "value";
 

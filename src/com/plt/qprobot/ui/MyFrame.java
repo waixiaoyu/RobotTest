@@ -1,33 +1,50 @@
 package com.plt.qprobot.ui;
 
 import java.awt.AWTException;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
-import javax.swing.JTextArea;
+
+import org.apache.log4j.Logger;
 
 import com.plt.qprobot.monitor.MonitorError;
+import com.plt.qprobot.monitor.MonitorShutdown;
 import com.plt.qprobot.monitor.MonitorStatus;
 import com.plt.qprobot.robot.RobotMain;
+import com.plt.qprobot.seq.SeqWrite;
+import com.plt.qprobot.utils.PropertiesUtils;
 
 public class MyFrame extends JFrame {
+	private static Logger Log = Logger.getLogger(MyFrame.class);
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JFrame fr;
-	JButton jbReadStatusStart = new JButton("开始检查状态");
-	JButton jbReadStatusStop = new JButton("停止检查状态");
-	JButton jbInputStart = new JButton("开始录入");
-	JButton jbInputStop = new JButton("停止录入");
+	public static JFrame fr;
+	private JButton jbReadStatusStart = new JButton("开始检查状态");
+	private JButton jbReadStatusStop = new JButton("停止检查状态");
+	private JButton jbInputStart = new JButton("开始录入");
+	private JButton jbInputStop = new JButton("停止录入");
+	public static JLabel jlTimer = new JLabel("等待命令中...");
+	private static Robot robot;
 
-	MyFrame() {
+	public static final long WAITING_TIME_BEFORE_START = 3000;// 开始前等待间隔。
+
+	MyFrame() throws AWTException {
+		robot = new Robot();
+		// 启动错误检查进程
+		Thread threadME = new Thread(new MonitorError());
+		threadME.start();
+		// 启动异常退出检测进程
+		Runtime.getRuntime().addShutdownHook(new MonitorShutdown());
+
 		fr = new JFrame();
 		fr.setBounds(100, 100, 300, 250);
 		// 设置窗体为空布局
@@ -48,65 +65,129 @@ public class MyFrame extends JFrame {
 		fr.getContentPane().add(jbReadStatusStop);
 		jbReadStatusStop.setBounds(145, 140, 120, 25);
 
+		fr.getContentPane().add(jlTimer);
+		jlTimer.setBounds(60, 50, 200, 25);
+
 		fr.setTitle("QP录入机器人");
 		fr.setUndecorated(true);
 		fr.getRootPane().setWindowDecorationStyle(JRootPane.PLAIN_DIALOG);
 		fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fr.setLocationRelativeTo(null); // 让窗体居中显示
 		fr.setVisible(true);
+
 	}
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws AWTException {
+		// 添加程序异常结束监听线程
+
 		new MyFrame();
 	}
 
-}
+	public static Robot getRobot() {
+		if (robot != null) {
+			return robot;
+		} else {
+			Log.error("robot has not initiazied");
+			System.exit(1);
+			return null;
+		}
+	}
 
-class InputStartActionListener implements ActionListener {
+	/**
+	 * 检测是否激活指定窗口
+	 * 
+	 * @return
+	 * @throws InterruptedException
+	 */
+	public static boolean isWindowActivated() throws InterruptedException {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		try {
-			// 启动主进程
-			Thread threadRM = new Thread(new RobotMain());
-			RobotMain.isContinue = true;
-			threadRM.start();
-			// 启动错误检查进程
-			Thread threadME = new Thread(new MonitorError());
-			threadME.start();
-		} catch (AWTException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		String[] str = PropertiesUtils.get("GreenScreenColorLocation").split(",");
+		Thread.sleep(500);
+		int x = SeqWrite.radioToCoordinate(Double.valueOf(str[0]), Double.valueOf(str[1]))[0];
+		int y = SeqWrite.radioToCoordinate(Double.valueOf(str[0]), Double.valueOf(str[1]))[1];
+		Color color = robot.getPixelColor(x, y);
+		Color oldColor = new Color(Integer.valueOf(str[2]), Integer.valueOf(str[3]), Integer.valueOf(str[4]));
+		if (!color.equals(oldColor)) {
+			JOptionPane.showConfirmDialog(fr, "没有检测到窗口，请重新操作！", "错误", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.ERROR_MESSAGE);
+			jlTimer.setText("没有检测到窗口，请重新操作！");
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * 控制label信息
+	 * 
+	 * @throws InterruptedException
+	 */
+	public static void preparedLabel() throws InterruptedException {
+		MyFrame.jlTimer.setText("主程序" + WAITING_TIME_BEFORE_START / 1000 + "秒后准备开始！");
+		Thread.sleep(1000);
+		MyFrame.jlTimer.setText("请尽快手动切换到指定的QP页面！");
+		Thread.sleep(1000);
+		for (int i = 0; i < WAITING_TIME_BEFORE_START / 1000; i++) {
+			MyFrame.jlTimer.setText((WAITING_TIME_BEFORE_START / 1000 - i) + "秒后准备开始...");
+			Thread.sleep(1000);
+		}
+		MyFrame.jlTimer.setText("正在运行... ");
+	}
+
+	/**
+	 * 用于按钮监听的内部类
+	 *
+	 */
+	class InputStartActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// MonitorStatus.isContinue = true;
+			if (!MonitorStatus.isContinue) {
+				// 启动主进程
+				Thread threadRM = new Thread(new RobotMain());
+				RobotMain.isContinue = true;
+				threadRM.start();
+			} else {
+				JOptionPane.showConfirmDialog(fr, "无法启动录入，请先停止状态检查！", "错误", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
 
 	}
-}
 
-class InputStopActionListener implements ActionListener {
+	class InputStopActionListener implements ActionListener {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		RobotMain.isContinue = false;
-
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			RobotMain.isContinue = false;
+			jlTimer.setText("等待命令...");
+		}
 	}
-}
 
-class ReadStatusStartActionListener implements ActionListener {
+	class ReadStatusStartActionListener implements ActionListener {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		Thread threadMS = new Thread(new MonitorStatus());
-		MonitorStatus.isContinue = true;
-		threadMS.start();
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (!RobotMain.isContinue) {
+				Thread threadMS = new Thread(new MonitorStatus());
+				MonitorStatus.isContinue = true;
+				threadMS.start();
+			} else {
+				JOptionPane.showConfirmDialog(fr, "无法启动状态检查，请先停止录入！", "错误", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.ERROR_MESSAGE);
 
+			}
+
+		}
 	}
-}
 
-class ReadStatusStopActionListener implements ActionListener {
+	class ReadStatusStopActionListener implements ActionListener {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		MonitorStatus.isContinue = false;
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			MonitorStatus.isContinue = false;
+			jlTimer.setText("等待命令...");
+		}
 	}
 }

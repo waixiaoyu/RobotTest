@@ -5,9 +5,14 @@ import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import org.apache.log4j.Logger;
+
 import com.plt.qprobot.seq.SeqRead;
+import com.plt.qprobot.ui.MyFrame;
 
 public class BehaviorLogic {
+	private Logger Log = Logger.getLogger(BehaviorLogic.class);
+
 	private Robot robot;
 
 	public BehaviorLogic(Robot robot) {
@@ -110,9 +115,9 @@ public class BehaviorLogic {
 				color = robot.getPixelColor(Integer.valueOf(strs[0]), Integer.valueOf(strs[1]));
 			}
 			if (nCount < nAttemptTime) {
-				System.out.println("ÑÕÉ«¼ì²â³É¹¦");
+				Log.info("ÑÕÉ«¼ì²â³É¹¦:" + colorOld.toString() + " strs:" + strs);
 			} else {
-				System.err.println("ÑÕÉ«¼ì²âÊ§°Ü" + "pixel:" + strs + color);
+				Log.error("ÑÕÉ«¼ì²âÊ§°Ü" + "pixel:" + strs + color);
 				System.exit(1);
 			}
 			break;

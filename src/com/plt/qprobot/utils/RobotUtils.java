@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 public class RobotUtils {
+
+	
 	public static Dimension getScreenSize() {
 		// 获取屏幕分辨率
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();

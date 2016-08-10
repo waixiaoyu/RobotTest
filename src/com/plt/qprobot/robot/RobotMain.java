@@ -13,23 +13,29 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.dom4j.DocumentException;
 
 import com.plt.qprobot.behavior.BehaviorLogic;
 import com.plt.qprobot.behavior.SysClipboardUtils;
-import com.plt.qprobot.monitor.MonitorError;
 import com.plt.qprobot.seq.SeqMain;
 import com.plt.qprobot.seq.SeqRead;
+import com.plt.qprobot.ui.MyFrame;
 import com.plt.qprobot.utils.IOUtils;
+import com.plt.qprobot.utils.PropertiesUtils;
 import com.plt.qprobot.utils.XMLUtils;
 
 public class RobotMain implements Runnable {
 
-	public static volatile boolean isContinue = true;
+	private static Logger Log = Logger.getLogger(Robot.class);
+
+	public static volatile boolean isContinue = false;
 
 	public static String dir = "";
-	public static String strCurrentFileName = System.getProperty("user.dir");
+	public static String strCurrentFileName = "";
 
 	public static String strUniCode = "";
 
@@ -40,8 +46,10 @@ public class RobotMain implements Runnable {
 		IOUtils.makeDirs(dir + "\\receive");
 		IOUtils.makeDirs(dir + "\\error");
 		if (!IOUtils.isExist(dir + "\\send")) {
-			System.out.println("send文件夹不存在，请检查！");
+			Log.error("send文件夹不存在，请检查！");
+			return;
 		}
+		isContinue = true;
 	}
 
 	public static String strJsonPath;
@@ -49,31 +57,40 @@ public class RobotMain implements Runnable {
 	@Override
 	public void run() {
 		while (isContinue) {
-			System.out.println("开始获取xml文件");
+			Log.info("准备开始获取xml文件");
 			strCurrentFileName = XMLUtils.getFileName();
 			if (strCurrentFileName.equals("")) {
-				System.out.println("所有文件读取结束！");
+				Log.info("无录入文件！");
+				MyFrame.jlTimer.setText("无录入文件,等待命令！");
+				JOptionPane.showConfirmDialog(MyFrame.fr, "没有检测到录入文件！", "提示", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.INFORMATION_MESSAGE);
 				isContinue = false;
 			} else {
 				SeqMain sm = new SeqMain(strCurrentFileName);
 				try {
 					sm.create();
-					System.out.println("主程序准备开始3s");
+					Log.info("主程序准备" + MyFrame.WAITING_TIME_BEFORE_START + "s后开始");
+					MyFrame.preparedLabel();
+					if (!MyFrame.isWindowActivated()) {
+						Log.error("没有检测到QP窗口");
+						isContinue = false;
+						return;
+					}
 					RobotMain rm = new RobotMain();
 					Thread.sleep(3000);
-					rm.start();
+					rm.startRobot();
 
 					strUniCode = SysClipboardUtils.getSysClipboardText();
 					XMLUtils.createXML(strCurrentFileName);
 					XMLUtils.deleteTXT(strCurrentFileName);
 					XMLUtils.deleteXML(strCurrentFileName);
 				} catch (DocumentException | InterruptedException | IOException | AWTException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Log.error(e);
 				}
 
 			}
 		}
+		isContinue = false;
 	}
 
 	public static void main(String[] args) throws AWTException, InterruptedException, IOException, DocumentException {
@@ -91,7 +108,7 @@ public class RobotMain implements Runnable {
 				System.out.println("主程序准备开始3s");
 				RobotMain rm = new RobotMain();
 				Thread.sleep(3000);
-				rm.start();
+				rm.startRobot();
 
 				strUniCode = SysClipboardUtils.getSysClipboardText();
 				XMLUtils.createXML(strCurrentFileName);
@@ -102,11 +119,11 @@ public class RobotMain implements Runnable {
 
 	}
 
-	public void start() throws AWTException, InterruptedException {
+	public void startRobot() throws AWTException, InterruptedException {
 		List<String> strBehSeq;
 		strBehSeq = SeqRead.read(SeqMain.strJsonPath);
 
-		Robot robot = new Robot();
+		Robot robot = MyFrame.getRobot();
 		robot.setAutoDelay(300);
 		BehaviorLogic bl = new BehaviorLogic(robot);
 		for (String seq : strBehSeq) {

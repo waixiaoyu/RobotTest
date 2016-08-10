@@ -6,10 +6,15 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 
+import org.apache.log4j.Logger;
+
 public class SysClipboardUtils {
+	private static Logger Log = Logger.getLogger(SysClipboardUtils.class);
+
 	public static void main(String[] args) {
 		setSysClipboardText("双信器");
 	}
+
 	/**
 	 * 从剪切板获得文字。
 	 */
@@ -25,7 +30,7 @@ public class SysClipboardUtils {
 				try {
 					ret = (String) clipTf.getTransferData(DataFlavor.stringFlavor);
 				} catch (Exception e) {
-					e.printStackTrace();
+					Log.error(e);
 				}
 			}
 		}

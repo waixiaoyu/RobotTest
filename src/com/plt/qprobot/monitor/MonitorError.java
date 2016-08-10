@@ -12,8 +12,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.Logger;
+
+import com.plt.qprobot.behavior.BehaviorLogic;
 import com.plt.qprobot.robot.RobotMain;
 import com.plt.qprobot.seq.SeqWrite;
+import com.plt.qprobot.ui.MyFrame;
 import com.plt.qprobot.utils.PropertiesUtils;
 
 /**
@@ -23,12 +27,15 @@ import com.plt.qprobot.utils.PropertiesUtils;
  *
  */
 public class MonitorError implements Runnable {
+	private Logger Log = Logger.getLogger(MonitorError.class);
+
 	private Robot robot;
 	private boolean isError = false;
 
 	public MonitorError() throws AWTException {
 		super();
-		this.robot = new Robot();
+		this.robot = MyFrame.getRobot();
+		Log.info("错误检测进程启动！");
 	}
 
 	public static void main(String[] args) throws AWTException {
@@ -37,7 +44,6 @@ public class MonitorError implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("错误检测进程启动！");
 		String[] str = PropertiesUtils.get("error").split(",");
 		int x = SeqWrite.radioToCoordinate(Double.valueOf(str[0]), Double.valueOf(str[1]))[0];
 		int y = SeqWrite.radioToCoordinate(Double.valueOf(str[0]), Double.valueOf(str[1]))[1];
@@ -46,8 +52,7 @@ public class MonitorError implements Runnable {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.error(e);
 			}
 			Color color = robot.getPixelColor(x, y);
 			Color colorOld = new Color(Integer.valueOf(str[2]), Integer.valueOf(str[3]), Integer.valueOf(str[4]));
@@ -55,10 +60,9 @@ public class MonitorError implements Runnable {
 				try {
 					printScreen();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Log.error(e);
 				}
-				System.err.println("系统出错，退出！");
+				Log.error("系统检测出错，退出！");
 				System.exit(1);
 			}
 
@@ -71,13 +75,19 @@ public class MonitorError implements Runnable {
 
 		// 获取屏幕分辨率
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		System.out.println(d);
+		Log.info("屏幕分辨率:" + d.toString());
 		Rectangle screenRect = new Rectangle(d);
 		// 截图
 		BufferedImage bufferedImage = robot.createScreenCapture(screenRect);
 		// 保存截图
-		File file = new File(RobotMain.dir + "\\error\\"
-				+ RobotMain.strCurrentFileName.substring(0, RobotMain.strCurrentFileName.length() - 4) + "_err.png");
+		File file;
+		if (RobotMain.strCurrentFileName.length() > 4) {
+			file = new File(RobotMain.dir + "\\error\\"
+					+ RobotMain.strCurrentFileName.substring(0, RobotMain.strCurrentFileName.length() - 4)
+					+ "_err.png");
+		} else {
+			file = new File(".\\error\\" + "_err.png");
+		}
 		ImageIO.write(bufferedImage, "png", file);
 
 	}

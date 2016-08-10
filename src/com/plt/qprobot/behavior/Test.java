@@ -12,8 +12,8 @@ public class Test {
 		Robot robot = new Robot();
 		String[] str = PropertiesUtils.get("error").split(",");
 		Thread.sleep(3000);
-		int x = SeqWrite.radioToCoordinate(Double.valueOf(str[0]), Double.valueOf(str[1]))[0];
-		int y = SeqWrite.radioToCoordinate(Double.valueOf(str[0]), Double.valueOf(str[1]))[1];
+		int x = SeqWrite.radioToCoordinate(0.742,0.911)[0];
+		int y = SeqWrite.radioToCoordinate(0.742,0.911)[1];
 		Color color = robot.getPixelColor(x, y);
 		System.out.println(color);
 	}
