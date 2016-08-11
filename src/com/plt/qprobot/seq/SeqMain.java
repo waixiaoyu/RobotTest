@@ -27,6 +27,11 @@ public class SeqMain {
 		cs.create();
 	}
 
+	
+	/**
+	 * 所有的操作序列，都在以下函数中给出，通过该函数可以生成json字符串，程序读取字符串进行相应的动作
+	 * @throws DocumentException
+	 */
 	public void create() throws DocumentException {
 		List<JSONObject> lJ = new ArrayList<>();
 

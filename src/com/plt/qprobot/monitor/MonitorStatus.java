@@ -133,6 +133,8 @@ public class MonitorStatus implements Runnable {
 		lJ.add(SeqWrite.keyPress("enter"));
 		lJ.add(SeqWrite.keyPress("A"));
 		lJ.add(SeqWrite.sleep(1000));
+		// 检测是否查询
+		lJ.add(SeqWrite.checkColor(PropertiesUtils.get("QueryBlankColorLocation")));
 		lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("Result")));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.mouseLeftClick()); // 生成json

@@ -8,10 +8,14 @@ import java.awt.event.KeyEvent;
 import org.apache.log4j.Logger;
 
 import com.plt.qprobot.seq.SeqRead;
+import com.plt.qprobot.seq.SeqWrite;
 import com.plt.qprobot.ui.MyFrame;
+import com.plt.qprobot.utils.PropertiesUtils;
 
 public class BehaviorLogic {
 	private Logger Log = Logger.getLogger(BehaviorLogic.class);
+
+	private static final int NORMAL_WINDOW_ATTEMPTS = 10;// 检测正常窗口次数
 
 	private Robot robot;
 
@@ -21,6 +25,9 @@ public class BehaviorLogic {
 	}
 
 	public void doBehavior(String instruction) throws InterruptedException {
+
+		testNormalWindow();
+
 		String strKey = instruction.split(SeqRead.SPLIT_MARK)[0];
 		String strValue = "";
 		if (instruction.split(SeqRead.SPLIT_MARK).length > 1) {
@@ -123,6 +130,46 @@ public class BehaviorLogic {
 			break;
 		default:
 			break;
+		}
+
+	}
+
+	/**
+	 * 用于检测窗口正常的函数，使用循环检测！如果超出尝试次数，系统退出。
+	 * 
+	 * @throws InterruptedException
+	 */
+	private void testNormalWindow() throws InterruptedException {
+
+		int nAttempts = 0;
+		while (!isNormalWindow() && nAttempts < NORMAL_WINDOW_ATTEMPTS) {
+			Thread.sleep(1000);
+			++nAttempts;
+			Log.error("QP窗口不正常，可能处于假死，第" + nAttempts + "次");
+			if (nAttempts >= NORMAL_WINDOW_ATTEMPTS) {
+				Log.error("QP窗口不正常，系统退出！");
+				System.exit(1);
+			}
+		}
+	}
+
+	/**
+	 * 根据窗口颜色，检测是否处于正常状态
+	 * 
+	 * @return
+	 * @throws InterruptedException
+	 */
+	private boolean isNormalWindow() throws InterruptedException {
+		String[] str = PropertiesUtils.get("GreenScreenColorLocation").split(",");
+		Thread.sleep(50);
+		int x = SeqWrite.radioToCoordinate(Double.valueOf(str[0]), Double.valueOf(str[1]))[0];
+		int y = SeqWrite.radioToCoordinate(Double.valueOf(str[0]), Double.valueOf(str[1]))[1];
+		Color color = MyFrame.getRobot().getPixelColor(x, y);
+		Color oldColor = new Color(Integer.valueOf(str[2]), Integer.valueOf(str[3]), Integer.valueOf(str[4]));
+		if (color.equals(oldColor)) {
+			return true;
+		} else {
+			return false;
 		}
 
 	}

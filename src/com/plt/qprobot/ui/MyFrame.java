@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 
@@ -28,11 +30,14 @@ public class MyFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	public static JFrame fr;
+
+
 	private JButton jbReadStatusStart = new JButton("开始检查状态");
 	private JButton jbReadStatusStop = new JButton("停止检查状态");
 	private JButton jbInputStart = new JButton("开始录入");
 	private JButton jbInputStop = new JButton("停止录入");
 	public static JLabel jlTimer = new JLabel("等待命令中...");
+	public static JLabel jlStopping = new JLabel();
 	private static Robot robot;
 
 	public static final long WAITING_TIME_BEFORE_START = 3000;// 开始前等待间隔。
@@ -62,11 +67,20 @@ public class MyFrame extends JFrame {
 		fr.getContentPane().add(jbInputStop);
 		jbInputStop.setBounds(155, 180, 100, 25);
 
+		jbInputStop.addActionListener(new InputStopActionListener());
+
 		fr.getContentPane().add(jbReadStatusStop);
 		jbReadStatusStop.setBounds(145, 140, 120, 25);
 
+		jbReadStatusStop.addActionListener(new ReadStatusStopActionListener());
+
 		fr.getContentPane().add(jlTimer);
 		jlTimer.setBounds(60, 50, 200, 25);
+
+		fr.getContentPane().add(jlStopping);
+		jlStopping.setBounds(60, 80, 200, 25);
+
+
 
 		fr.setTitle("QP录入机器人");
 		fr.setUndecorated(true);
@@ -135,6 +149,28 @@ public class MyFrame extends JFrame {
 	}
 
 	/**
+	 * 准备停止中
+	 * 
+	 * @throws InterruptedException
+	 */
+	class LabelStopping implements Runnable {
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			jlStopping.setText("请等待执行完一次完整过程！");
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			jlStopping.setText("");
+		}
+
+	}
+
+	/**
 	 * 用于按钮监听的内部类
 	 *
 	 */
@@ -160,8 +196,11 @@ public class MyFrame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			RobotMain.isContinue = false;
-			jlTimer.setText("等待命令...");
+			if (RobotMain.isContinue) {
+				RobotMain.isContinue = false;
+				jlTimer.setText("等待命令...");
+				new Thread(new LabelStopping()).start();
+			}
 		}
 	}
 
@@ -186,8 +225,11 @@ public class MyFrame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			MonitorStatus.isContinue = false;
-			jlTimer.setText("等待命令...");
+			if (MonitorStatus.isContinue) {
+				MonitorStatus.isContinue = false;
+				jlTimer.setText("等待命令...");
+				new Thread(new LabelStopping()).start();
+			}
 		}
 	}
 }

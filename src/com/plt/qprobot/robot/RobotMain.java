@@ -1,6 +1,7 @@
 package com.plt.qprobot.robot;
 
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -23,6 +24,7 @@ import com.plt.qprobot.behavior.BehaviorLogic;
 import com.plt.qprobot.behavior.SysClipboardUtils;
 import com.plt.qprobot.seq.SeqMain;
 import com.plt.qprobot.seq.SeqRead;
+import com.plt.qprobot.seq.SeqWrite;
 import com.plt.qprobot.ui.MyFrame;
 import com.plt.qprobot.utils.IOUtils;
 import com.plt.qprobot.utils.PropertiesUtils;

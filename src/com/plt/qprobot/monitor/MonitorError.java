@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.log4j.Logger;
 
-import com.plt.qprobot.behavior.BehaviorLogic;
+import com.plt.qprobot.email.Mail;
 import com.plt.qprobot.robot.RobotMain;
 import com.plt.qprobot.seq.SeqWrite;
 import com.plt.qprobot.ui.MyFrame;
@@ -27,14 +27,14 @@ import com.plt.qprobot.utils.PropertiesUtils;
  *
  */
 public class MonitorError implements Runnable {
-	private Logger Log = Logger.getLogger(MonitorError.class);
+	private static Logger Log = Logger.getLogger(MonitorError.class);
 
-	private Robot robot;
+	private static Robot robot;
 	private boolean isError = false;
 
 	public MonitorError() throws AWTException {
 		super();
-		this.robot = MyFrame.getRobot();
+		MonitorError.robot = MyFrame.getRobot();
 		Log.info("错误检测进程启动！");
 	}
 
@@ -63,13 +63,17 @@ public class MonitorError implements Runnable {
 					Log.error(e);
 				}
 				Log.error("系统检测出错，退出！");
+				/**
+				 * 发送错误提醒邮件
+				 */
+				Mail.send();
 				System.exit(1);
 			}
 
 		}
 	}
 
-	private void printScreen() throws IOException {
+	public static void printScreen() throws IOException {
 		// 设置Robot产生一个动作后的休眠时间,否则执行过快
 		robot.setAutoDelay(1000);
 
