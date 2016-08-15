@@ -61,7 +61,10 @@ public class MonitorStatus implements Runnable {
 
 	public MonitorStatus() {
 		super();
+		// 启动异常退出检测进程
+		Runtime.getRuntime().addShutdownHook(new MonitorShutdown(this.getClass().getName()));
 		IOUtils.makeDirs(dir + "\\status");
+
 	}
 
 	@Override

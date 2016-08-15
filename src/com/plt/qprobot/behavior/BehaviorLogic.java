@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.rmi.server.RMIClassLoader;
 
 import org.apache.log4j.Logger;
 
+import com.plt.qprobot.robot.RobotMain;
 import com.plt.qprobot.seq.SeqRead;
 import com.plt.qprobot.seq.SeqWrite;
 import com.plt.qprobot.ui.MyFrame;
@@ -100,6 +102,10 @@ public class BehaviorLogic {
 				robot.keyPress(KeyEvent.VK_BACK_SPACE);
 				robot.keyRelease(KeyEvent.VK_BACK_SPACE);
 				break;
+			case "alt":
+				robot.keyPress(KeyEvent.VK_ALT);
+				robot.keyRelease(KeyEvent.VK_ALT);
+				break;
 			default:
 				break;
 			}
@@ -114,19 +120,43 @@ public class BehaviorLogic {
 			String[] strs = strValue.split(",");
 			Color color = robot.getPixelColor(Integer.valueOf(strs[0]), Integer.valueOf(strs[1]));
 			Color colorOld = new Color(Integer.valueOf(strs[2]), Integer.valueOf(strs[3]), Integer.valueOf(strs[4]));
-			int nAttemptTime = 10;
+			int nAttemptTime = NORMAL_WINDOW_ATTEMPTS;
 			int nCount = 0;
+			// 对于只是检测弹出窗口的，缩短等待时间,ItemList=0.292,0.654,240,240,240,3
+			if (strs.length == 6) {
+				nAttemptTime = Integer.valueOf(strs[5]);
+			}
 			while (!color.equals(colorOld) && nCount < nAttemptTime) {
 				++nCount;
-				Thread.sleep(500);
+				Thread.sleep(200);
 				color = robot.getPixelColor(Integer.valueOf(strs[0]), Integer.valueOf(strs[1]));
 			}
 			if (nCount < nAttemptTime) {
 				Log.info("颜色检测成功:" + colorOld.toString() + " strs:" + strs);
+				RobotMain.isColorCheck = true;
 			} else {
-				Log.error("颜色检测失败" + "pixel:" + strs + color);
-				System.exit(1);
+				Log.info("颜色检测失败" + "pixel:" + strs + color);
+				RobotMain.isColorCheck = false;
+				if (!RobotMain.isProtect) {
+					Log.error("颜色检测失败,退出！" + "pixel:" + strs + color);
+					System.exit(1);
+				}
+
 			}
+			break;
+		case BehaviorType.JUMP:
+			RobotMain.nJumpSteps = Integer.valueOf(strValue);
+			Log.info("设置jump值为：" + RobotMain.nJumpSteps);
+			break;
+		case BehaviorType.PROTECT:
+			// 保护当前操作，不退出
+			RobotMain.nJumpSteps = 0;
+			RobotMain.isProtect = true;
+			break;
+		case BehaviorType.UNPROTECT:
+			// 保护当前操作，不退出
+			RobotMain.nJumpSteps = 0;
+			RobotMain.isProtect = false;
 			break;
 		default:
 			break;
@@ -143,7 +173,7 @@ public class BehaviorLogic {
 
 		int nAttempts = 0;
 		while (!isNormalWindow() && nAttempts < NORMAL_WINDOW_ATTEMPTS) {
-			Thread.sleep(1000);
+			Thread.sleep(300);
 			++nAttempts;
 			Log.error("QP窗口不正常，可能处于假死，第" + nAttempts + "次");
 			if (nAttempts >= NORMAL_WINDOW_ATTEMPTS) {

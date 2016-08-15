@@ -22,6 +22,8 @@ import org.dom4j.DocumentException;
 
 import com.plt.qprobot.behavior.BehaviorLogic;
 import com.plt.qprobot.behavior.SysClipboardUtils;
+import com.plt.qprobot.monitor.MonitorShutdown;
+import com.plt.qprobot.monitor.MonitorStatus;
 import com.plt.qprobot.seq.SeqMain;
 import com.plt.qprobot.seq.SeqRead;
 import com.plt.qprobot.seq.SeqWrite;
@@ -40,10 +42,16 @@ public class RobotMain implements Runnable {
 	public static String strCurrentFileName = "";
 
 	public static String strUniCode = "";
+	public static boolean isColorCheck = true;// 专门用于动态逻辑检查
+	public static boolean isProtect = false;// 专门用于保护当前操作，防止因为颜色检查失败而退出
+
+	public static int nJumpSteps = 0;
 
 	public RobotMain() {
 		super();
-		// TODO Auto-generated constructor stub
+		// 启动异常退出检测进程
+		Runtime.getRuntime().addShutdownHook(new MonitorShutdown(this.getClass().getName()));
+
 		dir = System.getProperty("user.dir");
 		IOUtils.makeDirs(dir + "\\receive");
 		IOUtils.makeDirs(dir + "\\error");
@@ -63,10 +71,14 @@ public class RobotMain implements Runnable {
 			strCurrentFileName = XMLUtils.getFileName();
 			if (strCurrentFileName.equals("")) {
 				Log.info("无录入文件！");
-				MyFrame.jlTimer.setText("无录入文件,等待命令！");
-				JOptionPane.showConfirmDialog(MyFrame.fr, "没有检测到录入文件！", "提示", JOptionPane.DEFAULT_OPTION,
-						JOptionPane.INFORMATION_MESSAGE);
+				MyFrame.jlTimer.setText("无录入文件,准备开始检查状态！");
+				// JOptionPane.showConfirmDialog(MyFrame.fr, "没有检测到录入文件！", "提示",
+				// JOptionPane.DEFAULT_OPTION,
+				// JOptionPane.INFORMATION_MESSAGE);
+
 				isContinue = false;
+				MyFrame.jbReadStatusStart.doClick();
+
 			} else {
 				SeqMain sm = new SeqMain(strCurrentFileName);
 				try {
@@ -128,8 +140,15 @@ public class RobotMain implements Runnable {
 		Robot robot = MyFrame.getRobot();
 		robot.setAutoDelay(300);
 		BehaviorLogic bl = new BehaviorLogic(robot);
-		for (String seq : strBehSeq) {
-			bl.doBehavior(seq);
+		for (int i = 0; i < strBehSeq.size(); i++) {
+			if (!isColorCheck && RobotMain.nJumpSteps > 0) {
+				Log.info("没有弹出对话框，进入跳步，jumpstep：" + RobotMain.nJumpSteps);
+				i = i + RobotMain.nJumpSteps;
+				RobotMain.nJumpSteps = 0;
+				isColorCheck = true;
+			}
+			Log.info(i + "  " + strBehSeq.get(i));
+			bl.doBehavior(strBehSeq.get(i));
 		}
 
 	}

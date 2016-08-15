@@ -15,7 +15,7 @@ public class SeqMain {
 	private static Logger Log = Logger.getLogger(SeqMain.class);
 
 	public static String strJsonPath;
-	public static long sleep_time = 50;// 可以通过缩短休眠时间来提高速度
+	public static long sleep_time = 30;// 可以通过缩短休眠时间来提高速度
 
 	public SeqMain(String strJsonPath) {
 		super();
@@ -27,9 +27,9 @@ public class SeqMain {
 		cs.create();
 	}
 
-	
 	/**
 	 * 所有的操作序列，都在以下函数中给出，通过该函数可以生成json字符串，程序读取字符串进行相应的动作
+	 * 
 	 * @throws DocumentException
 	 */
 	public void create() throws DocumentException {
@@ -58,6 +58,32 @@ public class SeqMain {
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+
+		// 暂存
+		tmpSave(lJ);
+		// 创建报关单核心部分
+		createOrderContent(lJ);
+		// 创建集装箱信息
+		createBoxes(lJ);
+		// 创建商品信息-----------------------------------------
+		createGoods(lJ);
+		// 创建商品信息结束----------------------------------------
+		// 创建单证信息
+		createAttachDocuments(lJ);
+		// 暂存
+		tmpSave(lJ);
+
+		/**
+		 * 获取统一编码
+		 */
+		createUniCode(lJ);
+
+		// 生成json
+		JSONUtils.write(lJ, strJsonPath);
+
+	}
+
+	private void tmpSave(List<JSONObject> lJ) throws DocumentException {
 		/**
 		 * 暂存
 		 */
@@ -65,7 +91,9 @@ public class SeqMain {
 		// 检测是否暂存成功
 		lJ.add(SeqWrite.checkColor(PropertiesUtils.get("TempSaveColorLocation")));
 		lJ.add(SeqWrite.keyPress("enter"));
+	}
 
+	private void createOrderContent(List<JSONObject> lJ) throws DocumentException {
 		/**
 		 * 开始上半部分
 		 */
@@ -81,11 +109,6 @@ public class SeqMain {
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
 		// 进口日期
-		// lJ.add(SeqWrite.copy(XMLUtils.read("ImportExportDate").replaceAll("-",
-		// "")));
-		// lJ.add(SeqWrite.keyPress("paste"));
-		// lJ.add(SeqWrite.sleep(sleep_time));
-		// lJ.add(SeqWrite.keyPress("enter"));
 		lJ.add(SeqWrite.keyPress("enter"));// 跳过进口日期
 		// 收发货人
 		lJ.add(SeqWrite.copy(XMLUtils.read("Consignee")));
@@ -278,9 +301,9 @@ public class SeqMain {
 			lJ.add(SeqWrite.keyPress("enter"));
 		}
 		lJ.add(SeqWrite.keyPress("enter"));
-		/**
-		 * 可能有多个集装箱
-		 */
+	}
+
+	private void createBoxes(List<JSONObject> lJ) throws DocumentException {
 		for (int i = 0; i < XMLUtils.readAll("Container").size(); i++) {
 			// 集装箱号
 			lJ.add(SeqWrite.copy(XMLUtils.readAll("ContainerNo").get(i).getStringValue()));
@@ -298,6 +321,10 @@ public class SeqMain {
 			lJ.add(SeqWrite.sleep(sleep_time));
 			lJ.add(SeqWrite.keyPress("enter"));
 		}
+		if (XMLUtils.readAll("Container").size() > 0
+				&& XMLUtils.readAll("ContainerNo").get(0).getStringValue().equals("")) {
+			lJ.add(SeqWrite.keyPress("enter"));
+		}
 
 		// 报关单类型
 		lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("DeclarationType")));
@@ -308,10 +335,10 @@ public class SeqMain {
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+	}
 
-		/**
-		 * 填入下半部分商品信息-------------------------------------- 可能有多个商品
-		 */
+	private void createGoods(List<JSONObject> lJ) throws DocumentException {
+		Log.info("物品数量: " + XMLUtils.readAll("GoodsInformation").size());
 		for (int i = 0; i < XMLUtils.readAll("GoodsInformation").size(); i++) {
 			// 商品名称多重菜单、
 			lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("GoodsName")));
@@ -320,14 +347,28 @@ public class SeqMain {
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.keyPress("enter"));
 
+			// 检测是否itemlist会直接弹出
+			lJ.add(SeqWrite.protect());
+			lJ.add(SeqWrite.checkColor(PropertiesUtils.get("ItemList")));
+			lJ.add(SeqWrite.jump(2));
+			lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("ItemListCancel")));
+			lJ.add(SeqWrite.mouseLeftClick());
+			lJ.add(SeqWrite.unprotect());
+
 			lJ.add(SeqWrite.copy(XMLUtils.readAll("HsCode").get(i).getStringValue()));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.keyPress("enter"));
-			lJ.add(SeqWrite.sleep(sleep_time));
+			lJ.add(SeqWrite.sleep(sleep_time + 500));
 			lJ.add(SeqWrite.keyPress("enter"));
-			lJ.add(SeqWrite.sleep(sleep_time));
+			lJ.add(SeqWrite.sleep(sleep_time + 500));
+
+			// 检测是否会得到最终商品信息
+			lJ.add(SeqWrite.protect());
+			lJ.add(SeqWrite.checkColor(PropertiesUtils.get("GoodDetailColorLocation")));
+			lJ.add(SeqWrite.jump(1));
 			lJ.add(SeqWrite.keyPress("enter"));
-			lJ.add(SeqWrite.sleep(sleep_time));
+			lJ.add(SeqWrite.unprotect());
+
 			// 获取商品附加信息
 			String[] strGoodsInfo = XMLUtils.readGoodInfoAll("Model").get(i).getStringValue().split("\\|");
 			for (String string : strGoodsInfo) {
@@ -335,8 +376,15 @@ public class SeqMain {
 				lJ.add(SeqWrite.keyPress("paste"));
 				lJ.add(SeqWrite.keyPress("enter"));
 			}
+			// 点击确定
+			lJ.add(SeqWrite.keyPress("alt"));
 			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.keyPress("enter"));
+
 			// 后续商品信息
+			// 成交数量
 			lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("Quantity")));
 			lJ.add(SeqWrite.mouseLeftClick());
 			lJ.add(SeqWrite.copy(XMLUtils.readAll("Quantity").get(i).getStringValue()));
@@ -364,6 +412,14 @@ public class SeqMain {
 			lJ.add(SeqWrite.copy(XMLUtils.readAll("FirstQuantity").get(i).getStringValue()));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.keyPress("enter"));
+
+			// 检测法定数量是否会直接弹出提示信息
+			lJ.add(SeqWrite.protect());
+			lJ.add(SeqWrite.checkColor(PropertiesUtils.get("QuantityInfoLocation")));
+			lJ.add(SeqWrite.jump(1));
+			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.unprotect());
+
 			// 法定单位--无法输入
 			// lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("FirstUnit")));
 			// lJ.add(SeqWrite.mouseLeftClick());
@@ -373,24 +429,43 @@ public class SeqMain {
 			lJ.add(SeqWrite.keyPress("enter"));// 跳过版本号
 			lJ.add(SeqWrite.keyPress("enter"));// 跳过货号
 			// 最终目的国
+
 			lJ.add(SeqWrite.copy(XMLUtils.readAll("DestinationCountry").get(i).getStringValue()));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.keyPress("enter"));
+
+			// 第二数量
+			if (!XMLUtils.readAll("SecondQuantity").isEmpty()
+					&& XMLUtils.readAll("SecondQuantity").get(i).getStringValue() != "") {
+				lJ.add(SeqWrite.copy(XMLUtils.readAll("SecondQuantity").get(i).getStringValue()));
+				lJ.add(SeqWrite.keyPress("paste"));
+				lJ.add(SeqWrite.keyPress("enter"));
+			}
+
 			// 原产国
+			// lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("OriginCode")));
+			// lJ.add(SeqWrite.mouseLeftClick());
 			lJ.add(SeqWrite.copy(XMLUtils.readAll("OriginCode").get(i).getStringValue()));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.keyPress("enter"));
-			lJ.add(SeqWrite.keyPress("enter"));// 跳过对话框
+
+			// 检测法定数量是否会直接弹出提示信息
+			// 检测是否itemlist会直接弹出
+			lJ.add(SeqWrite.protect());
+			lJ.add(SeqWrite.checkColor(PropertiesUtils.get("OriInfoLocation")));
+			lJ.add(SeqWrite.jump(2));
+			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.unprotect());
+
 			// 征免方式
 			lJ.add(SeqWrite.copy(XMLUtils.readAll("DutyMode").get(i).getStringValue()));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.keyPress("enter"));
 
 		}
+	}
 
-		/**
-		 * 单证
-		 */
+	private void createAttachDocuments(List<JSONObject> lJ) throws DocumentException {
 		lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("AttachedDocumentCode")));
 		lJ.add(SeqWrite.mouseLeftClick());
 		for (int i = 0; i < XMLUtils.readAll("AttachDocument").size(); i++) {
@@ -405,21 +480,15 @@ public class SeqMain {
 			lJ.add(SeqWrite.sleep(sleep_time));
 			lJ.add(SeqWrite.keyPress("enter"));
 		}
-
-		/**
-		 * 商品信息结束-----------------------------------------------
-		 */
-
-		/**
-		 * 暂存
-		 */
-		lJ.add(SeqWrite.keyPress("save"));
-		// 检测是否暂存成功
-		lJ.add(SeqWrite.checkColor(PropertiesUtils.get("TempSaveColorLocation")));
+		// 检测是否itemlist会直接弹出
+		lJ.add(SeqWrite.protect());
+		lJ.add(SeqWrite.checkColor(PropertiesUtils.get("OriInfoLocation")));
+		lJ.add(SeqWrite.jump(1));
 		lJ.add(SeqWrite.keyPress("enter"));
-		/**
-		 * 获取统一编码
-		 */
+		lJ.add(SeqWrite.unprotect());
+	}
+
+	private void createUniCode(List<JSONObject> lJ) throws DocumentException {
 		lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("UniCode")));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.mouseLeftClick());
@@ -430,10 +499,6 @@ public class SeqMain {
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("copy"));
 		lJ.add(SeqWrite.sleep(sleep_time));
-
-		// 生成json
-		JSONUtils.write(lJ, strJsonPath);
-
 	}
 
 	public void read() {

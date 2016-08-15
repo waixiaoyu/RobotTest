@@ -1,0 +1,15 @@
+2016-08-12 09:47:28  [ Thread-4:8784 ] - [ ERROR ]  没有检测到QP窗口
+2016-08-12 11:12:49  [ Thread-4:168790 ] - [ ERROR ]  send目录为空，可能出错！
+2016-08-12 11:26:40  [ Thread-4:31032 ] - [ ERROR ]  颜色检测失败pixel:[Ljava.lang.String;@1a0cd55java.awt.Color[r=171,g=171,b=171]
+2016-08-12 11:33:53  [ Thread-4:25365 ] - [ ERROR ]  颜色检测失败pixel:[Ljava.lang.String;@4226d1java.awt.Color[r=171,g=171,b=171]
+2016-08-12 11:35:05  [ Thread-4:26264 ] - [ ERROR ]  颜色检测失败pixel:[Ljava.lang.String;@274510java.awt.Color[r=171,g=171,b=171]
+2016-08-12 11:36:47  [ Thread-4:25690 ] - [ ERROR ]  颜色检测失败pixel:[Ljava.lang.String;@131b463java.awt.Color[r=171,g=171,b=171]
+2016-08-12 11:38:10  [ Thread-4:41376 ] - [ ERROR ]  颜色检测失败pixel:[Ljava.lang.String;@3fe6cfjava.awt.Color[r=171,g=171,b=171]
+2016-08-12 11:41:13  [ Thread-4:25040 ] - [ ERROR ]  颜色检测失败pixel:[Ljava.lang.String;@4e646djava.awt.Color[r=171,g=171,b=171]
+2016-08-12 11:46:11  [ Thread-4:28616 ] - [ ERROR ]  颜色检测失败pixel:[Ljava.lang.String;@1156342java.awt.Color[r=171,g=171,b=171]
+2016-08-12 11:46:17  [ Thread-4:34832 ] - [ ERROR ]  QP窗口不正常，可能处于假死，第1次
+2016-08-12 11:46:18  [ Thread-4:35899 ] - [ ERROR ]  QP窗口不正常，可能处于假死，第2次
+2016-08-12 11:48:26  [ Thread-4:25764 ] - [ ERROR ]  QP窗口不正常，可能处于假死，第1次
+2016-08-12 11:52:01  [ Thread-4:25377 ] - [ ERROR ]  颜色检测失败pixel:[Ljava.lang.String;@1a7bd38java.awt.Color[r=171,g=171,b=171]
+2016-08-12 11:53:36  [ Thread-4:25206 ] - [ ERROR ]  颜色检测失败pixel:[Ljava.lang.String;@abd2b3java.awt.Color[r=171,g=171,b=171]
+2016-08-12 12:07:26  [ Thread-4:145887 ] - [ ERROR ]  颜色检测失败pixel:[Ljava.lang.String;@5215e4java.awt.Color[r=171,g=171,b=171]

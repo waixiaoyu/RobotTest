@@ -10,5 +10,9 @@ public class BehaviorType {
 	public static final String SLEEP = "sleep";
 	public static final String COPY = "copy";
 	public static final String COLOR = "color";
+	public static final String JUMP = "jump";
+	public static final String PROTECT = "protect";
+	public static final String UNPROTECT = "unprotect";
+
 
 }

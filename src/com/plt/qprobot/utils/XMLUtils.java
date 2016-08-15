@@ -29,7 +29,8 @@ public class XMLUtils {
 	private static String dir = "";
 
 	public static void main(String[] args) throws DocumentException {
-		System.out.println(getFileName());
+		getFileName();
+		System.out.println(read("InsuranceMark"));
 	}
 
 	/**
@@ -59,6 +60,7 @@ public class XMLUtils {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			Log.info("xml file name : " + str[0]);
 			return str[0];
 		}
 	}

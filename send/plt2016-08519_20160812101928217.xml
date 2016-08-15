@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TCS101Message>
+  <MessageBody>
+    <BaseInformation>
+      <CustomsDeclaration>5301</CustomsDeclaration>
+      <ImportPort>5301</ImportPort>
+      <ContractNo>plt2016-08519</ContractNo>
+      <Consignee>4403160JVA</Consignee>
+      <ConsumerUnit>4403160RE9</ConsumerUnit>
+      <DeclarationUnit>4403160JVA</DeclarationUnit>
+      <MeansOfTransportMode>4</MeansOfTransportMode>
+      <MeansOfTransportId>1100210435843</MeansOfTransportId>
+      <BillOfLadingNo>PLT201608519</BillOfLadingNo>
+      <TradeMode>0110</TradeMode>
+      <CutMode>101</CutMode>
+      <PurchaseCountry>110</PurchaseCountry>
+      <LoadingPort>110</LoadingPort>
+      <DestinationCode>44031</DestinationCode>
+      <TransactionMode>1</TransactionMode>
+      <FreightMark />
+      <FreightRate />
+      <FreightCurrency />
+      <InsuranceMark />
+      <InsuranceRate />
+      <InsuranceCurrency />
+      <ExtrasMark />
+      <ExtrasRate />
+      <ExtrasCurrency />
+      <Packages>30</Packages>
+      <PackingType>2</PackingType>
+      <GrossWeight>111</GrossWeight>
+      <NetWeight>100.14</NetWeight>
+      <TradeAreaCode>110</TradeAreaCode>
+      <DeclarationType>M</DeclarationType>
+      <PromiseItmes>000</PromiseItmes>
+    </BaseInformation>
+    <ContainerList>
+      <Container>
+        <No />
+        <ContainerNo />
+        <ContainerSize />
+        <DeadWeight />
+      </Container>
+    </ContainerList>
+    <AttachDocumentList>
+      <AttachDocument>
+        <No />
+        <AttachedDocumentCode />
+        <AttachedDocumentNo />
+      </AttachDocument>
+    </AttachDocumentList>
+    <GoodsInformationList>
+      <GoodsInformation>
+        <No>1</No>
+        <HsCode>8532241000</HsCode>
+        <GoodsName>片式多层瓷介电容器</GoodsName>
+        <Model>多层 片式|瓷介|muRata牌|GRM0335C1E120JA01D型|容量：12pF 用于手机</Model>
+        <Quantity>1590000.0000</Quantity>
+        <QuantityUnit>007</QuantityUnit>
+        <UnitPrice>0.0004</UnitPrice>
+        <TotalPrice>666.27</TotalPrice>
+        <Currency>502</Currency>
+        <FirstQuantity>13.8500</FirstQuantity>
+        <FirstUnit>035</FirstUnit>
+        <DestinationCountry>142</DestinationCountry>
+        <SecondQuantity>1590.0000</SecondQuantity>
+        <SecondUnit>054</SecondUnit>
+        <OriginCode>142</OriginCode>
+        <DutyMode>1</DutyMode>
+      </GoodsInformation>
+      <GoodsInformation>
+        <No>2</No>
+        <HsCode>8532241000</HsCode>
+        <GoodsName>片式多层瓷介电容器</GoodsName>
+        <Model>多层 片式|瓷介|muRata牌|GRM0335C1E150JA01D型|容量：15pF 用于手机</Model>
+        <Quantity>2100000.0000</Quantity>
+        <QuantityUnit>007</QuantityUnit>
+        <UnitPrice>0.0004</UnitPrice>
+        <TotalPrice>879.98</TotalPrice>
+        <Currency>502</Currency>
+        <FirstQuantity>18.0900</FirstQuantity>
+        <FirstUnit>035</FirstUnit>
+        <DestinationCountry>142</DestinationCountry>
+        <SecondQuantity>2100.0000</SecondQuantity>
+        <SecondUnit>054</SecondUnit>
+        <OriginCode>142</OriginCode>
+        <DutyMode>1</DutyMode>
+      </GoodsInformation>
+      <GoodsInformation>
+        <No>3</No>
+        <HsCode>8532241000</HsCode>
+        <GoodsName>片式多层瓷介电容器</GoodsName>
+        <Model>多层 片式|瓷介|muRata牌|GRM0335C1E1R0BA01D型|容量：1.0pF 用于手机</Model>
+        <Quantity>300000.0000</Quantity>
+        <QuantityUnit>007</QuantityUnit>
+        <UnitPrice>0.0008</UnitPrice>
+        <TotalPrice>254.49</TotalPrice>
+        <Currency>502</Currency>
+        <FirstQuantity>2.5400</FirstQuantity>
+        <FirstUnit>035</FirstUnit>
+        <DestinationCountry>142</DestinationCountry>
+        <SecondQuantity>300.0000</SecondQuantity>
+        <SecondUnit>054</SecondUnit>
+        <OriginCode>142</OriginCode>
+        <DutyMode>1</DutyMode>
+      </GoodsInformation>
+      <GoodsInformation>
+        <No>4</No>
+        <HsCode>8532241000</HsCode>
+        <GoodsName>片式多层瓷介电容器</GoodsName>
+        <Model>多层 片式|瓷介|muRata牌|GRM0335C1E1R0CA01D型|容量：1.0pF 用于手机</Model>
+        <Quantity>75000.0000</Quantity>
+        <QuantityUnit>007</QuantityUnit>
+        <UnitPrice>0.0004</UnitPrice>
+        <TotalPrice>31.43</TotalPrice>
+        <Currency>502</Currency>
+        <FirstQuantity>0.5700</FirstQuantity>
+        <FirstUnit>035</FirstUnit>
+        <DestinationCountry>142</DestinationCountry>
+        <SecondQuantity>75.0000</SecondQuantity>
+        <SecondUnit>054</SecondUnit>
+        <OriginCode>142</OriginCode>
+        <DutyMode>1</DutyMode>
+      </GoodsInformation>
+      <GoodsInformation>
+        <No>5</No>
+        <HsCode>8532241000</HsCode>
+        <GoodsName>片式多层瓷介电容器</GoodsName>
+        <Model>多层 片式|瓷介|muRata牌|GRM0335C1E1R2CA01D型|容量：1.2pF 用于手机</Model>
+        <Quantity>75000.0000</Quantity>
+        <QuantityUnit>007</QuantityUnit>
+        <UnitPrice>0.0004</UnitPrice>
+        <TotalPrice>31.43</TotalPrice>
+        <Currency>502</Currency>
+        <FirstQuantity>0.6000</FirstQuantity>
+        <FirstUnit>035</FirstUnit>
+        <DestinationCountry>142</DestinationCountry>
+        <SecondQuantity>75.0000</SecondQuantity>
+        <SecondUnit>054</SecondUnit>
+        <OriginCode>142</OriginCode>
+        <DutyMode>1</DutyMode>
+      </GoodsInformation>
+      <GoodsInformation>
+        <No>6</No>
+        <HsCode>8532241000</HsCode>
+        <GoodsName>片式多层瓷介电容器</GoodsName>
+        <Model>多层 片式|瓷介|muRata牌|GRM0335C1E1R8CA01D型|容量：1.8pF 用于手机</Model>
+        <Quantity>120000.0000</Quantity>
+        <QuantityUnit>007</QuantityUnit>
+        <UnitPrice>0.0004</UnitPrice>
+        <TotalPrice>50.28</TotalPrice>
+        <Currency>502</Currency>
+        <FirstQuantity>0.9600</FirstQuantity>
+        <FirstUnit>035</FirstUnit>
+        <DestinationCountry>142</DestinationCountry>
+        <SecondQuantity>120.0000</SecondQuantity>
+        <SecondUnit>054</SecondUnit>
+        <OriginCode>142</OriginCode>
+        <DutyMode>1</DutyMode>
+      </GoodsInformation>
+      <GoodsInformation>
+        <No>7</No>
+        <HsCode>8532241000</HsCode>
+        <GoodsName>片式多层瓷介电容器</GoodsName>
+        <Model>多层 片式|瓷介|muRata牌|GRM0335C1E3R3CA01D型|容量：3.3pF 用于手机</Model>
+        <Quantity>720000.0000</Quantity>
+        <QuantityUnit>007</QuantityUnit>
+        <UnitPrice>0.0004</UnitPrice>
+        <TotalPrice>301.71</TotalPrice>
+        <Currency>502</Currency>
+        <FirstQuantity>6.2700</FirstQuantity>
+        <FirstUnit>035</FirstUnit>
+        <DestinationCountry>142</DestinationCountry>
+        <SecondQuantity>720.0000</SecondQuantity>
+        <SecondUnit>054</SecondUnit>
+        <OriginCode>142</OriginCode>
+        <DutyMode>1</DutyMode>
+      </GoodsInformation>
+      <GoodsInformation>
+        <No>17</No>
+        <HsCode>8532241000</HsCode>
+        <GoodsName>片式多层瓷介电容器</GoodsName>
+        <Model>多层 片式|瓷介|muRata牌|GRM21BR60J226ME39L型|容量：22UF 用于手机</Model>
+        <Quantity>102000.0000</Quantity>
+        <QuantityUnit>007</QuantityUnit>
+        <UnitPrice>0.0065</UnitPrice>
+        <TotalPrice>664.06</TotalPrice>
+        <Currency>502</Currency>
+        <FirstQuantity>4.2900</FirstQuantity>
+        <FirstUnit>035</FirstUnit>
+        <DestinationCountry>142</DestinationCountry>
+        <SecondQuantity>102.0000</SecondQuantity>
+        <SecondUnit>054</SecondUnit>
+        <OriginCode>142</OriginCode>
+        <DutyMode>1</DutyMode>
+      </GoodsInformation>
+    </GoodsInformationList>
+  </MessageBody>
+</TCS101Message>

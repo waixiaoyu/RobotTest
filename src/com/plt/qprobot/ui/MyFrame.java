@@ -31,8 +31,7 @@ public class MyFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static JFrame fr;
 
-
-	private JButton jbReadStatusStart = new JButton("开始检查状态");
+	public static JButton jbReadStatusStart = new JButton("开始检查状态");
 	private JButton jbReadStatusStop = new JButton("停止检查状态");
 	private JButton jbInputStart = new JButton("开始录入");
 	private JButton jbInputStop = new JButton("停止录入");
@@ -48,10 +47,10 @@ public class MyFrame extends JFrame {
 		Thread threadME = new Thread(new MonitorError());
 		threadME.start();
 		// 启动异常退出检测进程
-		Runtime.getRuntime().addShutdownHook(new MonitorShutdown());
+		Runtime.getRuntime().addShutdownHook(new MonitorShutdown(this.getClass().getName()));
 
 		fr = new JFrame();
-		fr.setBounds(100, 100, 300, 250);
+		fr.setBounds(50, 50, 300, 250);
 		// 设置窗体为空布局
 		fr.setLayout(null);
 		fr.getContentPane().add(jbInputStart);
@@ -80,13 +79,11 @@ public class MyFrame extends JFrame {
 		fr.getContentPane().add(jlStopping);
 		jlStopping.setBounds(60, 80, 200, 25);
 
-
-
 		fr.setTitle("QP录入机器人");
 		fr.setUndecorated(true);
 		fr.getRootPane().setWindowDecorationStyle(JRootPane.PLAIN_DIALOG);
 		fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fr.setLocationRelativeTo(null); // 让窗体居中显示
+		// fr.setLocationRelativeTo(null); // 让窗体居中显示
 		fr.setVisible(true);
 
 	}

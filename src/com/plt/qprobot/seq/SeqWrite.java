@@ -12,9 +12,9 @@ import com.plt.qprobot.behavior.BehaviorType;
  *
  */
 public class SeqWrite {
-	
-	private static Logger Log=Logger.getLogger(SeqWrite.class);
-	
+
+	private static Logger Log = Logger.getLogger(SeqWrite.class);
+
 	public static final String KEY = "key";
 	public static final String VALUE = "value";
 
@@ -93,5 +93,17 @@ public class SeqWrite {
 
 		return genJSONObject(BehaviorType.COLOR,
 				strs[0] + "," + strs[1] + "," + strs[2] + "," + strs[3] + "," + strs[4]);
+	}
+
+	public static JSONObject jump(int n) {
+		return genJSONObject(BehaviorType.JUMP, String.valueOf(n));
+	}
+
+	public static JSONObject protect() {
+		return genJSONObject(BehaviorType.PROTECT, "");
+	}
+
+	public static JSONObject unprotect() {
+		return genJSONObject(BehaviorType.UNPROTECT, "");
 	}
 }
