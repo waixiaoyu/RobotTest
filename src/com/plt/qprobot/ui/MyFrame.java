@@ -9,8 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 
@@ -42,6 +40,7 @@ public class MyFrame extends JFrame {
 	public static final long WAITING_TIME_BEFORE_START = 3000;// 开始前等待间隔。
 
 	MyFrame() throws AWTException {
+		Log.info("当前目录为：" + System.getProperty("user.dir"));
 		robot = new Robot();
 		// 启动错误检查进程
 		Thread threadME = new Thread(new MonitorError());
@@ -79,7 +78,7 @@ public class MyFrame extends JFrame {
 		fr.getContentPane().add(jlStopping);
 		jlStopping.setBounds(60, 80, 200, 25);
 
-		fr.setTitle("QP录入机器人");
+		fr.setTitle("TomAndJerry");
 		fr.setUndecorated(true);
 		fr.getRootPane().setWindowDecorationStyle(JRootPane.PLAIN_DIALOG);
 		fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

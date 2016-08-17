@@ -14,7 +14,7 @@ public class PropertiesUtils {
 		prop = new Properties();// 属性集合对象
 		FileInputStream fis = null;
 		try {
-			fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\location.properties");
+			fis = new FileInputStream(System.getProperty("user.dir") + "\\location.properties");
 			prop.load(fis);
 		} catch (IOException e) {
 			Log.error(e);

@@ -1,6 +1,5 @@
 package com.plt.qprobot.seq;
 
-import java.awt.Robot;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -11,8 +10,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.plt.qprobot.robot.RobotMain;
 
 /**
  * 该类用于读取json格式的操作序列

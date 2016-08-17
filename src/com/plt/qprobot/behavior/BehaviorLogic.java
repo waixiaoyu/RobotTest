@@ -5,6 +5,8 @@ import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.rmi.server.RMIClassLoader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -57,10 +59,40 @@ public class BehaviorLogic {
 			robot.mouseRelease(InputEvent.BUTTON1_MASK);// ÊÍ·Å×ó¼ü
 			break;
 		case BehaviorType.INPUT:
-			char[] cArr = strValue.toUpperCase().toCharArray();
-			for (char c : cArr) {
-				robot.keyPress(c);
-				robot.keyRelease(c);
+			switch (strValue) {
+			case "keyInputFromPaste":
+				String strPaste = SysClipboardUtils.getSysClipboardText();
+				if (isChineseChar(strPaste)) {
+					robot.keyPress(KeyEvent.VK_CONTROL);
+					robot.keyPress('V');
+					robot.keyRelease('V');
+					robot.keyRelease(KeyEvent.VK_CONTROL);
+				} else {
+					char[] cArr = strPaste.toCharArray();
+					for (char c : cArr) {
+						Thread.sleep(200);
+						if (c >= 97 && c <= 122) {
+							robot.keyPress(c - 32);
+							robot.keyRelease(c - 32);
+						} else if (c >= 65 && c <= 90) {
+							robot.keyPress(KeyEvent.VK_SHIFT);
+							robot.keyPress(c);
+							robot.keyRelease(c);
+							robot.keyPress(KeyEvent.VK_SHIFT);
+						} else {
+							robot.keyPress(c);
+							robot.keyRelease(c);
+						}
+					}
+				}
+				break;
+			default:
+				char[] cArr = strValue.toUpperCase().toCharArray();
+				for (char c : cArr) {
+					robot.keyPress(c);
+					robot.keyRelease(c);
+				}
+				break;
 			}
 			break;
 		case BehaviorType.PRESS:
@@ -202,5 +234,15 @@ public class BehaviorLogic {
 			return false;
 		}
 
+	}
+
+	private boolean isChineseChar(String str) {
+		boolean temp = false;
+		Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+		Matcher m = p.matcher(str);
+		if (m.find()) {
+			temp = true;
+		}
+		return temp;
 	}
 }

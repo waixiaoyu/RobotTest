@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TCS101Message>
+  <MessageBody>
+    <BaseInformation>
+    <CustomsDeclaration>5301</CustomsDeclaration>
+    <ImportPort>5301</ImportPort>
+    <ContractNo>plt2016-08514</ContractNo>
+    <Consignee>4403160JVA</Consignee>
+    <ConsumerUnit>1108940996</ConsumerUnit>
+    <DeclarationUnit>4403160JVA</DeclarationUnit>
+    <MeansOfTransportMode>4</MeansOfTransportMode>
+    <MeansOfTransportId>1100204424504</MeansOfTransportId>
+    <BillOfLadingNo>PLT201608514</BillOfLadingNo>
+    <TradeMode>0110</TradeMode>
+    <CutMode>101</CutMode>
+    <PurchaseCountry>110</PurchaseCountry>
+    <LoadingPort>110</LoadingPort>
+    <DestinationCode>44031</DestinationCode>
+    <TransactionMode>1</TransactionMode>
+    <FreightMark />
+    <FreightRate />
+    <FreightCurrency />
+    <InsuranceMark />
+    <InsuranceRate />
+    <InsuranceCurrency />
+    <ExtrasMark />
+    <ExtrasRate />
+    <ExtrasCurrency />
+    <Packages>94</Packages>
+    <PackingType>2</PackingType>
+    <GrossWeight>458</GrossWeight>
+    <NetWeight>299.04</NetWeight>
+    <TradeAreaCode>110</TradeAreaCode>
+    <DeclarationType>M</DeclarationType>
+    <PromiseItmes>000</PromiseItmes>
+  </BaseInformation>
+  <ContainerList>
+    <Container>
+      <No />
+      <ContainerNo />
+      <ContainerSize />
+      <DeadWeight />
+    </Container>
+  </ContainerList>
+  <AttachDocumentList>
+    <AttachDocument>
+      <No />
+      <AttachedDocumentCode />
+      <AttachedDocumentNo />
+    </AttachDocument>
+  </AttachDocumentList>
+  <GoodsInformationList>
+    <GoodsInformation>
+      <No>1</No>
+      <HsCode>8548900002</HsCode>
+      <GoodsName>双工器</GoodsName>
+      <Model>用于手机|ACX牌|DP2012-V0822KAT/LF型</Model>
+      <Quantity>320000.0000</Quantity>
+      <QuantityUnit>007</QuantityUnit>
+      <UnitPrice>0.0331</UnitPrice>
+      <TotalPrice>10581.12</TotalPrice>
+      <Currency>502</Currency>
+      <FirstQuantity>7.6000</FirstQuantity>
+      <FirstUnit>035</FirstUnit>
+      <DestinationCountry>142</DestinationCountry>
+      <SecondQuantity></SecondQuantity>
+      <SecondUnit></SecondUnit>
+      <OriginCode>143</OriginCode>
+      <DutyMode>1</DutyMode>
+    </GoodsInformation>
+    <GoodsInformation>
+      <No>2</No>
+      <HsCode>8517703000</HsCode>
+      <GoodsName>手机指纹识别模组</GoodsName>
+      <Model>适用于小米A1手机 用于手机指纹解锁|PRiMAX牌|2C-32104XM01型|材质：树脂，磷青铜等</Model>
+      <Quantity>28800.0000</Quantity>
+      <QuantityUnit>007</QuantityUnit>
+      <UnitPrice>6.9639</UnitPrice>
+      <TotalPrice>200560.32</TotalPrice>
+      <Currency>502</Currency>
+      <FirstQuantity>78.7500</FirstQuantity>
+      <FirstUnit>035</FirstUnit>
+      <DestinationCountry>142</DestinationCountry>
+      <SecondQuantity></SecondQuantity>
+      <SecondUnit></SecondUnit>
+      <OriginCode>142</OriginCode>
+      <DutyMode>1</DutyMode>
+    </GoodsInformation>
+    <GoodsInformation>
+      <No>3</No>
+      <HsCode>8541100000</HsCode>
+      <GoodsName>二极管</GoodsName>
+      <Model>WILLSEMI牌|ESD9X5VU-2/TR型|用于手机 结构:由单个半导体元件构成</Model>
+      <Quantity>50000.0000</Quantity>
+      <QuantityUnit>007</QuantityUnit>
+      <UnitPrice>0.0090</UnitPrice>
+      <TotalPrice>450.90</TotalPrice>
+      <Currency>502</Currency>
+      <FirstQuantity>50000.0000</FirstQuantity>
+      <FirstUnit>007</FirstUnit>
+      <DestinationCountry>142</DestinationCountry>
+      <SecondQuantity>0.5600</SecondQuantity>
+      <SecondUnit>035</SecondUnit>
+      <OriginCode>142</OriginCode>
+      <DutyMode>1</DutyMode>
+    </GoodsInformation>
+  </GoodsInformationList>
+</MessageBody>
+</TCS101Message>

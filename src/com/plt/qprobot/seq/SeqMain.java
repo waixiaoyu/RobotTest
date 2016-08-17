@@ -55,12 +55,12 @@ public class SeqMain {
 		lJ.add(SeqWrite.mouseLeftClick());
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.copy(XMLUtils.read("CustomsDeclaration")));
-		lJ.add(SeqWrite.keyPress("paste"));
+		lJ.add(SeqWrite.keyInputFromPaste());
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
 
 		// 暂存
-		tmpSave(lJ);
+		// tmpSave(lJ);
 		// 创建报关单核心部分
 		createOrderContent(lJ);
 		// 创建集装箱信息
@@ -99,44 +99,57 @@ public class SeqMain {
 		 */
 		// 进口口岸
 		lJ.add(SeqWrite.copy(XMLUtils.read("ImportPort")));
-		lJ.add(SeqWrite.keyPress("paste"));
+		lJ.add(SeqWrite.keyInputFromPaste());
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));// 跳过备案号
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 合同协议号
 		lJ.add(SeqWrite.copy(XMLUtils.read("ContractNo")));
-		lJ.add(SeqWrite.keyPress("paste"));
+		lJ.add(SeqWrite.keyInputFromPaste());
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 进口日期
 		lJ.add(SeqWrite.keyPress("enter"));// 跳过进口日期
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 收发货人
-		lJ.add(SeqWrite.copy(XMLUtils.read("Consignee")));
+		lJ.add(SeqWrite.keyInputFromPaste());
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 检测收发货人是否出现
 		lJ.add(SeqWrite.checkColor(PropertiesUtils.get("ConsigneeColorLocation")));
 		lJ.add(SeqWrite.keyPress("enter"));
-		lJ.add(SeqWrite.keyPress("enter"));
-		// 消费使用单位
-		lJ.add(SeqWrite.copy(XMLUtils.read("ConsumerUnit")));
-		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
+		// 消费使用单位
+		lJ.add(SeqWrite.copy(XMLUtils.read("ConsumerUnit")));
+		lJ.add(SeqWrite.keyInputFromPaste());
+		lJ.add(SeqWrite.sleep(sleep_time));
+		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 检测消费使用单位是否出现
 		lJ.add(SeqWrite.checkColor(PropertiesUtils.get("ConsumerUnitColorLocation")));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 申报单位
 		lJ.add(SeqWrite.copy(XMLUtils.read("DeclarationUnit")));
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 检测消费使用单位是否出现
 		lJ.add(SeqWrite.checkColor(PropertiesUtils.get("DeclarationUnitColorLocation")));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 运输方式
 		lJ.add(SeqWrite.mouseMoveInRadio(PropertiesUtils.get("MeansOfTransportMode")));
 		lJ.add(SeqWrite.mouseLeftClick());
@@ -144,50 +157,62 @@ public class SeqMain {
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));// 跳过运输攻击名称
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 航次号
 		lJ.add(SeqWrite.copy(XMLUtils.read("MeansOfTransportId")));
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 提运单号
 		lJ.add(SeqWrite.copy(XMLUtils.read("BillOfLadingNo")));
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 监督方式
 		lJ.add(SeqWrite.copy(XMLUtils.read("TradeMode")));
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 征免性质
 		lJ.add(SeqWrite.copy(XMLUtils.read("CutMode")));
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));// 跳过纳税单位
+		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));// 跳过许可证号
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 起运国
 		lJ.add(SeqWrite.copy(XMLUtils.read("PurchaseCountry")));
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 装货港
 		lJ.add(SeqWrite.copy(XMLUtils.read("LoadingPort")));
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 境内目的地
 		lJ.add(SeqWrite.copy(XMLUtils.read("DestinationCode")));
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		// 成交方式
 		String sTM = XMLUtils.read("TransactionMode");
 		lJ.add(SeqWrite.copy(XMLUtils.read("TransactionMode")));
 		lJ.add(SeqWrite.keyPress("paste"));
 		lJ.add(SeqWrite.sleep(sleep_time));
 		lJ.add(SeqWrite.keyPress("enter"));
+		lJ.add(SeqWrite.sleep(sleep_time));
 		if (sTM.equals("1")) {
 			// 杂费1
 			lJ.add(SeqWrite.copy(XMLUtils.read("ExtrasMark")));
@@ -214,16 +239,19 @@ public class SeqMain {
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.sleep(sleep_time));
 			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.sleep(sleep_time));
 			// 运费率
 			lJ.add(SeqWrite.copy(XMLUtils.read("FreightRate")));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.sleep(sleep_time));
 			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.sleep(sleep_time));
 			// 运费币制
 			lJ.add(SeqWrite.copy(XMLUtils.read("FreightCurrency")));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.sleep(sleep_time));
 			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.sleep(sleep_time));
 			// 保费1
 			lJ.add(SeqWrite.copy(XMLUtils.read("InsuranceMark")));
 			lJ.add(SeqWrite.keyPress("paste"));
@@ -234,26 +262,31 @@ public class SeqMain {
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.sleep(sleep_time));
 			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.sleep(sleep_time));
 			// 保费3
 			lJ.add(SeqWrite.copy(XMLUtils.read("InsuranceCurrency")));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.sleep(sleep_time));
 			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.sleep(sleep_time));
 			// 杂费1
 			lJ.add(SeqWrite.copy(XMLUtils.read("ExtrasMark")));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.sleep(sleep_time));
 			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.sleep(sleep_time));
 			// 杂费2
 			lJ.add(SeqWrite.copy(XMLUtils.read("ExtrasRate")));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.sleep(sleep_time));
 			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.sleep(sleep_time));
 			// 杂费3
 			lJ.add(SeqWrite.copy(XMLUtils.read("ExtrasCurrency")));
 			lJ.add(SeqWrite.keyPress("paste"));
 			lJ.add(SeqWrite.sleep(sleep_time));
 			lJ.add(SeqWrite.keyPress("enter"));
+			lJ.add(SeqWrite.sleep(sleep_time));
 		}
 		// 件数
 		lJ.add(SeqWrite.copy(XMLUtils.read("Packages")));

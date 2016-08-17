@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 
 import org.apache.log4j.Logger;
 
+import com.plt.qprobot.utils.XMLUtils;
+
 public class MonitorShutdown extends Thread {
 	private static Logger Log = Logger.getLogger(MonitorShutdown.class);
 
@@ -23,7 +25,8 @@ public class MonitorShutdown extends Thread {
 	@Override
 	public void run() {
 		try {
-			FileWriter fw = new FileWriter("./test.log");
+			XMLUtils.deleteExtraTXT();
+			FileWriter fw = new FileWriter("./end.log");
 			Log.info(strThreadName+": Im going to end.");
 			fw.write(strThreadName+": the application ended! "
 					+ (new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").format(System.currentTimeMillis())).toString());

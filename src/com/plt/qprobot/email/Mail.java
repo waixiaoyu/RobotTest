@@ -17,7 +17,7 @@ public class Mail {
 		Properties prop = new Properties();
 		FileInputStream fis = null;
 		try {
-			fis = new FileInputStream(System.getProperty("user.dir") + "\\src\\mail.properties");
+			fis = new FileInputStream(System.getProperty("user.dir") + "\\mail.properties");
 			prop.load(fis);
 		} catch (IOException e) {
 			Log.error(e);

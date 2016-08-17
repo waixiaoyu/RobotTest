@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TCS101Message>
+	<MessageBody>
+		<BaseInformation>
+		<CustomsDeclaration>5301</CustomsDeclaration>
+		<ImportPort>5301</ImportPort>
+		<ContractNo>plt2016-08390</ContractNo>
+		<Consignee>4403160JVA</Consignee>
+		<ConsumerUnit>1204310028</ConsumerUnit>
+		<DeclarationUnit>4403160JVA</DeclarationUnit>
+		<MeansOfTransportMode>4</MeansOfTransportMode>
+		<MeansOfTransportId>1100183400896</MeansOfTransportId>
+		<BillOfLadingNo>PLT201608390</BillOfLadingNo>
+		<TradeMode>0110</TradeMode>
+		<CutMode>101</CutMode>
+		<PurchaseCountry>110</PurchaseCountry>
+		<LoadingPort>110</LoadingPort>
+		<DestinationCode>44031</DestinationCode>
+		<TransactionMode>1</TransactionMode>
+		<FreightMark />
+		<FreightRate />
+		<FreightCurrency />
+		<InsuranceMark />
+		<InsuranceRate />
+		<InsuranceCurrency />
+		<ExtrasMark />
+		<ExtrasRate />
+		<ExtrasCurrency />
+		<Packages>299</Packages>
+		<PackingType>2</PackingType>
+		<GrossWeight>3981</GrossWeight>
+		<NetWeight>2732.10</NetWeight>
+		<TradeAreaCode>110</TradeAreaCode>
+		<DeclarationType>M</DeclarationType>
+		<PromiseItmes>000</PromiseItmes>
+	</BaseInformation>
+	<ContainerList>
+		<Container>
+			<No />
+			<ContainerNo />
+			<ContainerSize />
+			<DeadWeight />
+		</Container>
+	</ContainerList>
+	<AttachDocumentList>
+		<AttachDocument>
+			<No />
+			<AttachedDocumentCode />
+			<AttachedDocumentNo />
+		</AttachDocument>
+	</AttachDocumentList>
+	<GoodsInformationList>
+		<GoodsInformation>
+			<No>1</No>
+			<HsCode>8471701000</HsCode>
+			<GoodsName>服务器硬盘</GoodsName>
+			<Model>Seagate牌|ST900MM0168型|900G 128MB|10000转/分|2.5" SAS接口 服务器用</Model>
+			<Quantity>80.0000</Quantity>
+			<QuantityUnit>001</QuantityUnit>
+			<UnitPrice>117.0035</UnitPrice>
+			<TotalPrice>9360.28</TotalPrice>
+			<Currency>502</Currency>
+			<FirstQuantity>80.0000</FirstQuantity>
+			<FirstUnit>001</FirstUnit>
+			<DestinationCountry>142</DestinationCountry>
+			<SecondQuantity></SecondQuantity>
+			<SecondUnit></SecondUnit>
+			<OriginCode>142</OriginCode>
+			<DutyMode>1</DutyMode>
+		</GoodsInformation>
+		<GoodsInformation>
+			<No>2</No>
+			<HsCode>8471701000</HsCode>
+			<GoodsName>服务器硬盘</GoodsName>
+			<Model>Seagate牌|ST4000NM0033型|4TB 128MB|7200转/分|3.5" SATA接口 服务器用</Model>
+			<Quantity>200.0000</Quantity>
+			<QuantityUnit>001</QuantityUnit>
+			<UnitPrice>112.4945</UnitPrice>
+			<TotalPrice>22498.91</TotalPrice>
+			<Currency>502</Currency>
+			<FirstQuantity>200.0000</FirstQuantity>
+			<FirstUnit>001</FirstUnit>
+			<DestinationCountry>142</DestinationCountry>
+			<SecondQuantity></SecondQuantity>
+			<SecondUnit></SecondUnit>
+			<OriginCode>136</OriginCode>
+			<DutyMode>1</DutyMode>
+		</GoodsInformation>
+	</GoodsInformationList>
+</MessageBody>
+</TCS101Message>

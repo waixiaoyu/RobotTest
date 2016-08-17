@@ -1,9 +1,13 @@
 package com.plt.qprobot.seq;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import com.plt.qprobot.behavior.BehaviorType;
+import com.plt.qprobot.utils.PropertiesUtils;
 
 /**
  * 该类用于生成json格式的操作序列
@@ -32,7 +36,7 @@ public class SeqWrite {
 	 */
 	private static String getWindowLocation() {
 		// up，bot，left，right
-		return "59,800,288,1312";
+		return PropertiesUtils.get("WindowLocation");
 	}
 
 	public static int[] radioToCoordinate(double dX, double dY) {
@@ -73,12 +77,18 @@ public class SeqWrite {
 		return genJSONObject(BehaviorType.INPUT, str);
 	}
 
+	public static JSONObject keyInputFromPaste() {
+		return genJSONObject(BehaviorType.INPUT, "keyInputFromPaste");
+	}
+
 	public static JSONObject keyPress(String str) {
 		SeqWrite.sleep(100);
 		return genJSONObject(BehaviorType.PRESS, str);
 	}
 
 	public static JSONObject sleep(long sleeptime) {
+		double d = Math.random();
+		sleeptime = sleeptime + (long) (500 * d);
 		return genJSONObject(BehaviorType.SLEEP, String.valueOf(sleeptime));
 	}
 
@@ -106,4 +116,5 @@ public class SeqWrite {
 	public static JSONObject unprotect() {
 		return genJSONObject(BehaviorType.UNPROTECT, "");
 	}
+
 }

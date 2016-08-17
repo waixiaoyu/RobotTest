@@ -2,6 +2,7 @@ package com.plt.qprobot.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
@@ -20,7 +21,12 @@ import org.dom4j.xpath.DefaultXPath;
 
 import com.plt.qprobot.robot.RobotMain;
 
-public class XMLUtils {
+public class XMLUtils extends Exception {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static Logger Log = Logger.getLogger(XMLUtils.class);
 
 	private static SAXReader reader = new SAXReader();
@@ -29,8 +35,9 @@ public class XMLUtils {
 	private static String dir = "";
 
 	public static void main(String[] args) throws DocumentException {
-		getFileName();
-		System.out.println(read("InsuranceMark"));
+		// getFileName();
+		// System.out.println(read("CustomsDeclaration"));
+		deleteExtraTXT();
 	}
 
 	/**
@@ -150,10 +157,38 @@ public class XMLUtils {
 		}
 	}
 
+	/**
+	 * 单独删除读取过的txt
+	 * 
+	 * @param fileName
+	 */
 	public static void deleteTXT(String fileName) {
 		delete(RobotMain.dir + "\\" + fileName.substring(0, fileName.length() - 3) + "txt");
 	}
 
+	/**
+	 * 用于程序退出之前，删除目录下额外的txt文件（可能因为意外退出遗留下来的文件）
+	 */
+	public static void deleteExtraTXT() {
+		File file = new File(".\\");
+		FilenameFilter ff = new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".txt") && (name.startsWith("plt") || name.startsWith("PLT"));
+			}
+		};
+		for (String str : file.list(ff)) {
+			Log.info("准备删除：" + str);
+			delete(str);
+		}
+	}
+
+	/**
+	 * 单独删除读取过的xml
+	 * 
+	 * @param fileName
+	 */
 	public static void deleteXML(String fileName) {
 		delete(RobotMain.dir + "\\send\\" + fileName);
 	}
